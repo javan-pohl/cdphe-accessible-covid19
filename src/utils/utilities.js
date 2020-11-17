@@ -17,7 +17,7 @@ export function formatDate(date){
         formattedMonth = dateArray[0]
     }
 
-    const month = monthArray[formattedMonth];
+    const month = monthArray[formattedMonth-1];
     const day = dateArray[1];
     const year = dateArray[2];
     return `${month} ${day}, ${year}`    
