@@ -2,7 +2,7 @@ import React from "react";
 import XYFrame from "semiotic/lib/XYFrame";
 import { curveCatmullRom } from "d3-shape"
 import { scaleTime } from "d3-scale"
-import { formatComma, formatDate } from '../../utils/utilities'
+import { formatComma, formatDate } from '../../../utils/utilities'
 import './Graph.css';
 
 
