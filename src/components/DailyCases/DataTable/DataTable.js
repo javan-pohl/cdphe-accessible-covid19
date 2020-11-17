@@ -1,12 +1,13 @@
 import React from "react";
 import "tabler-react/dist/Tabler.css";
-import { formatComma, formatDate } from '../../utils/utilities'
+import { formatComma, formatDate } from '../../../utils/utilities'
 import { Table } from "tabler-react";
 import './DataTable.css'
+import '../../../App.css'
 
 const DataTable = (props) => {
   return (
-      <div className="data-table">
+      <div className="sr-only">
         <Table>
           <Table.Header>
             <Table.ColHeader>Date</Table.ColHeader>

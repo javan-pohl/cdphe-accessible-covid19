@@ -1,5 +1,5 @@
 import React from "react";
-import "tabler-react/dist/Tabler.css";
+import "../../../../node_modules/tabler-react/dist/Tabler.css";
 import Graph from '../Graph/Graph';
 import DataTable from '../DataTable/DataTable';
 import { Card } from "tabler-react";
