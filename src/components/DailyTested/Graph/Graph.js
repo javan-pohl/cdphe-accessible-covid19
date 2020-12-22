@@ -30,7 +30,7 @@ const Graph = (props) => {
         xAccessor: function(e) {
             return new Date(e.Date);
         },
-        yAccessor: "People Tested",
+        yAccessor: "Tested",
         yExtent: [0],
         lineStyle: (d, i) => ({
             stroke: theme[i],
