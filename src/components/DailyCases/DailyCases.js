@@ -20,7 +20,7 @@ const DailyCases = () => {
         setData(cleanedData);
       }) 
       .catch(err => console.log(err))
-    })
+    }, [])
 
   return (
     <div>
