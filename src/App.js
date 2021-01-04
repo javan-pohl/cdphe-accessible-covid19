@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import DailyCases from "./components/DailyCases/DailyCases";
-import DailyCasesTable from "./components/DailyCases/DailyCasesTable";
-import DailyDeaths from './components/DailyDeaths/DailyDeaths';
-import DailyTested from './components/DailyTested/DailyTested';
-import DailyHosp from './components/DailyHosp/DailyHosp';
+// import DailyCases from "./components/DailyCases/DailyCases";
+// import DailyCasesTable from "./components/DailyCases/DailyCasesTable";
+// import DailyDeaths from './components/DailyDeaths/DailyDeaths';
+// import DailyTested from './components/DailyTested/DailyTested';
+// import DailyHosp from './components/DailyHosp/DailyHosp';
+import DailyStats from './components/DailyStats/DailyStats';
 import { API_URL } from "./utils/constants";
 import "./App.css";
 import "tabler-react/dist/Tabler.css";
@@ -27,16 +28,28 @@ const App = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  let latest = {};
-  latest = data.slice(-1)[0];
-
   return (
     <div className="App">
-      <DailyCases data={data} />
-      <DailyCasesTable data={latest} />
-      <DailyDeaths />
-      <DailyTested />
-      <DailyHosp />
+      <DailyStats
+        data={data}
+        type="Cases"
+        yAccessor="Cases"
+      />
+      <DailyStats
+        data={data}
+        type="Hospitalized"
+        yAccessor="Hosp"
+      />
+      <DailyStats
+        data={data}
+        type="Deaths"
+        yAccessor="Deaths"
+      />
+      <DailyStats
+        data={data}
+        type="Tested"
+        yAccessor="Tested"
+      />
     </div>
   );
 };
