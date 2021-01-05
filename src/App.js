@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import DailyCases from "./components/DailyCases/DailyCases";
-// import DailyCasesTable from "./components/DailyCases/DailyCasesTable";
-// import DailyDeaths from './components/DailyDeaths/DailyDeaths';
-// import DailyTested from './components/DailyTested/DailyTested';
-// import DailyHosp from './components/DailyHosp/DailyHosp';
 import DailyStats from './components/DailyStats/DailyStats';
+import LatestSnapshot from './components/LatestSnapshot/LatestSnapshot';
 import { API_URL } from "./utils/constants";
 import "./App.css";
 import "tabler-react/dist/Tabler.css";
@@ -50,6 +46,9 @@ const App = () => {
         type="Tested"
         yAccessor="Tested"
       />
+      <LatestSnapshot 
+        data={data[0]} 
+      /> 
     </div>
   );
 };

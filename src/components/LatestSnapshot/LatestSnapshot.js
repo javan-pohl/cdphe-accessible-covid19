@@ -1,15 +1,15 @@
 import React from "react";
 import { Table } from "tabler-react";
 
-const DataTable = (props) => {
-  const { data, type } = props; 
+const DailySnapshot = (props) => {
+  const { data } = props; 
 
   return (
     <div>
       <Table>
         <Table.Header>
           <Table.ColHeader>Date</Table.ColHeader>
-          <Table.ColHeader>Daily Colorado Covid-19 {type}</Table.ColHeader>
+          <Table.ColHeader>Daily Colorado Covid-19 Statistics</Table.ColHeader>
         </Table.Header>
         <Table.Body>
           {data && Object.keys(data).map((key) => (
@@ -24,4 +24,4 @@ const DataTable = (props) => {
   );
 };
 
-export default DataTable;
+export default DailySnapshot;
