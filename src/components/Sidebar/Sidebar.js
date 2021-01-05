@@ -5,6 +5,7 @@ import './Sidebar.css'
 const Sidebar = () => {
   return (
     <Nav className="sidebar">
+        <h1 className="title">Dashboard</h1>
         <Nav.Item hasSubNav value="Case Summary">
             <Nav.SubItem value="Cases" />
             <Nav.SubItem value="Tested" />
