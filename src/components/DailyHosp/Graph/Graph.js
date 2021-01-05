@@ -9,6 +9,7 @@ import './Graph.css';
 const theme = ["#FF0000"];
 
 const Graph = (props) => {
+
     const frameProps = {   
         lines: { 
             coordinates: [
@@ -30,7 +31,7 @@ const Graph = (props) => {
         xAccessor: function(e) {
             return new Date(e.Date);
         },
-        yAccessor: "People Hospitalized",
+        yAccessor: "Hosp",
         yExtent: [0],
         lineStyle: (d, i) => ({
             stroke: theme[i],

@@ -8,11 +8,11 @@ import './Graph.css';
 
 const theme = ["#FF0000"];
 
-const Graph = (props) => {
+const Graph = ({data, type, yAccessor}) => {
     const frameProps = {   
         lines: { 
             coordinates: [
-                    ...props.data 
+                    ...data 
                 ]
             },
         size: [860, 400],
@@ -30,7 +30,7 @@ const Graph = (props) => {
         xAccessor: function(e) {
             return new Date(e.Date);
         },
-        yAccessor: "Tested",
+        yAccessor: yAccessor,
         yExtent: [0],
         lineStyle: (d, i) => ({
             stroke: theme[i],
@@ -38,12 +38,12 @@ const Graph = (props) => {
             fill: "none"
         }),
         title: (
-            <text textAnchor="middle">Total Colorado Covid-19 People Tested by Date</text>
+            <text textAnchor="middle">Number of Colorado Covid-19 {type} by Day</text>
         ),
         axes: [
             { 
                 orient: "left", 
-                label: "Number of People Tested", 
+                label: "Number of Cases", 
                 tickFormat: function(e){
                     return e / 1e3 + "k";
                 } 
@@ -63,7 +63,7 @@ const Graph = (props) => {
         tooltipContent: d => (
             <div className="tooltip-content">
                 <p>Date: {formatDate(d.Date)}</p>
-                <p>Total People Tested Count: {formatComma(d.Tested)}</p>
+                <p>Total {type} Count: {formatComma(d.Cases)}</p>
             </div>
         )
     }
