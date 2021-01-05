@@ -6,6 +6,11 @@
     padding: 2rem;
 }
 
-.title {
-    color: #467fcf;
+.sub-list {
+    list-style-type:none;
+    border-left: lightgrey 1px solid;
+}
+
+.sub-option:hover {
+    color: lightslategrey;
 }
