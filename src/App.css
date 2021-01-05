@@ -11,3 +11,13 @@
   height:1px;
   overflow:hidden;
 }
+
+.app {
+  height: 100%;
+  width: 100%;
+}
+
+.display {
+  height: 100%;
+  width: 80%;
+}
