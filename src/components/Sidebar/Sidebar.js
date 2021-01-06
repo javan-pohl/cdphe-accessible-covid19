@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <section className="sidebar">
+    <nav className="sidebar">
         <h1 className="title">Denver Covid-19 Dashboard</h1>
         <Link to="/">
           <h4 className="option">Daily Snapshot</h4>
@@ -24,7 +24,7 @@ const Sidebar = () => {
             <li className="sub-option">Deaths</li>
           </Link>
         </ul>
-    </section>
+    </nav>
   );
 };
 
