@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Sidebar = () => {
   return (
     <section className="sidebar">
-        <h1 className="title">Covid-19 Dashboard</h1>
+        <h1 className="title">Denver Covid-19 Dashboard</h1>
         <Link to="/">
           <h4 className="option">Daily Snapshot</h4>
         </Link>

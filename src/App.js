@@ -32,7 +32,7 @@ const App = () => {
       <section className="display">
         <Route exact path="/">
           <LatestSnapshot 
-          data={data[0]} 
+            data={data[0]} 
           /> 
         </Route>
         <Route exact path="/daily-cases">
