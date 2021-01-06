@@ -4,24 +4,24 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <nav className="sidebar">
+    <nav className="sidebar" role="menu" aria-label="Denver Covid-19 Visualization Options">
         <h1 className="title">Denver Covid-19 Dashboard</h1>
-        <Link to="/">
-          <h4 className="option">Daily Snapshot</h4>
+        <Link to="/" role="none">
+          <h4 className="option" role="menuitem">Daily Snapshot</h4>
         </Link>
         <h4 className="option">Case Summary</h4>
-        <ul className="sub-list" value="Case Summary">
+        <ul className="sub-list" value="Case Summary" role="menuitem">
           <Link to="/daily-cases">
-            <li className="sub-option">Cases</li>
+            <li className="sub-option" role="menuitem" aria-label="Daily Cases">Cases</li>
           </Link>
           <Link to="/daily-tested">
-            <li className="sub-option">Tested</li>
+            <li className="sub-option" role="menuitem" aria-label="Daily Tested">Tested</li>
           </Link>
           <Link to="/daily-hosp">
-            <li className="sub-option">Hospitalized</li>
+            <li className="sub-option" role="menuitem" aria-label="Daily Hospitalized">Hospitalized</li>
           </Link>
           <Link to="/daily-deaths">
-            <li className="sub-option">Deaths</li>
+            <li className="sub-option" role="menuitem" aria-label="Daily Deaths">Deaths</li>
           </Link>
         </ul>
     </nav>
