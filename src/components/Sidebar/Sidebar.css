@@ -1,0 +1,16 @@
+.sidebar {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.sub-list {
+    list-style-type:none;
+    border-left: lightgrey 1px solid;
+}
+
+.sub-option:hover {
+    color: lightslategrey;
+}
