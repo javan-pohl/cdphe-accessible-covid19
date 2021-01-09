@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import DailyStats from "./components/DailyStats/DailyStats";
-import LatestSnapshot from "./components/Home/LatestSnapshot";
-import Sidebar from "./components/Sidebar/Sidebar";
-import { API_URL } from "./utils/constants";
-
-import { Home } from "./components/Home/Home";
-import "./App.css";
-import "tabler-react/dist/Tabler.css";
 import { Route } from "react-router-dom";
 
-import { Page } from "tabler-react";
+import DailyStats from "./components/DailyStats/DailyStats";
+import Sidebar from "./components/Sidebar/Sidebar";
+import { Home } from "./components/Home/Home";
+
+import { API_URL } from "./utils/constants";
+
+import "./App.css";
+import "tabler-react/dist/Tabler.css";
 
 const App = () => {
   const [data, setData] = useState([]);

@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "tabler-react";
-import { StatsCard } from "../components/StatsCard/StatsCard";
+import { StatsCard } from "./StatsCard";
 
 const GridContainer = (props) => (
   <Grid.Col sm={6} md={4} lg={3}>
