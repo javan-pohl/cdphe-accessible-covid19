@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
-
-import DailyStats from "./components/DailyStats/DailyStats";
-import Sidebar from "./components/Sidebar/Sidebar";
-import { Home } from "./components/Home/Home";
-
-import { API_URL } from "./utils/constants";
-
 import "./App.css";
 import "tabler-react/dist/Tabler.css";
 
+import React, { useEffect, useState } from "react";
+
+import { API_URL } from "./utils/constants";
+import DailyStats from "./components/DailyStats/DailyStats";
+import { Home } from "./components/Home/Home";
+import { Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar/Sidebar";
+import { sortObjectsByDescendingDate } from "./utils/utilities";
+
 const App = () => {
   const [data, setData] = useState([]);
-  console.log(data);
   const cleanData = (data) => {
-    const newData = [];
-
+    let newData = [];
     data.map((attr) => newData.push(...Object.values(attr)));
-    //Need to add a sort here, it looks like 2021 is at the top, and 2020 is at the bottom
-    return newData.filter((attr) => attr.Date !== null);
+    let filteredData = newData.filter((attr) => attr.Date !== null);
+    return sortObjectsByDescendingDate(filteredData);
   };
 
   useEffect(() => {
