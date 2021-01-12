@@ -20,5 +20,23 @@ export function formatDate(date){
     const month = monthArray[formattedMonth-1];
     const day = dateArray[1];
     const year = dateArray[2];
-    return `${month} ${day}, ${year}`    
+    return `${month} ${day}, ${year}`
+}
+
+export function parseDateMonthDayYear(date) {
+    // parse date string in the form MM/DD/YYYY
+    const sep = '/';
+    let [month, day, year] = date.split(sep);
+    return new Date(`${year}-${month}-${day}`);
+}
+
+export function sortObjectsByDescendingDate(objects, parseDate) {
+    // sorts objects by date from most recent to least recent
+    // parseDate must take an object argument and return a Javascript Date
+    let objectsCopy = objects.slice();
+    if (parseDate === undefined) {
+        parseDate = obj => parseDateMonthDayYear(obj.Date);
+    }
+    objectsCopy.sort((a, b) => parseDate(b) - parseDate(a));
+    return objectsCopy;
 }
