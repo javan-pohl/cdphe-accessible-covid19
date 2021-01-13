@@ -16,7 +16,8 @@ const App = () => {
     let newData = [];
     data.map((attr) => newData.push(...Object.values(attr)));
     let filteredData = newData.filter((attr) => attr.Date !== null);
-    return sortObjectsByDescendingDate(filteredData);
+    let sortedData = sortObjectsByDescendingDate(filteredData);
+    return sortedData;
   };
 
   useEffect(() => {

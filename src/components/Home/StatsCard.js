@@ -1,5 +1,7 @@
+import { Card, Header, Icon, Text } from "tabler-react";
+import { formatComma, formatDecimal } from "../../utils/utilities";
+
 import React from "react";
-import { Card, Header, Text, Icon } from "tabler-react";
 
 export const StatsCard = (_ref) => {
   var className = _ref.className,
@@ -7,25 +9,107 @@ export const StatsCard = (_ref) => {
     movementType = _ref.movementType,
     total = _ref.total,
     label = _ref.label;
-    
 
-  var movementString = "" + (movement > 0 ? "+" : "") + movement + movementType;
-  var movementColor = !movement ? "yellow" : movement > 0 ? "green" : "red";
+  const labelDatatypes = {
+    cases: "integer",
+    tested: "integer",
+    test_encounters: "integer",
+    deaths: "integer",
+    dthcovid19: "integer",
+    population: "integer",
+    rate: "decimal",
+    hosp: "integer",
+    counties: "integer",
+    outbreaks: "integer",
+  }
+
+  const getFormatter = (label) => {
+    let datatype = labelDatatypes[label.toLowerCase()]
+    if ( datatype === "integer" ) {
+        return formatComma;
+    } else if ( datatype === "decimal" ) {
+        return x => formatDecimal(x, 2);
+    }
+    return x => x;
+  }
+
+  let formatter = getFormatter(label);
+  let totalString = formatter(total);
+
+  let movementString = "";
+  if ( !isNaN(movement) ) {
+    movementString = formatter(movement);
+    movementString = "" + (movement > 0 ? "+" : "") + movementString + movementType;
+  }
+
+  const neutralLabels = [
+    "objectid",
+    "name",
+    "desc_",
+    "date",
+    "counties",
+  ]
+  const hideMovement = neutralLabels.includes(label.toLowerCase());
+
+  const positiveLabels = [
+    "population",
+    "tested",
+  ]
+
+  const negativeLabels = [
+    "cases",
+    "test_encounters",
+    "deaths",
+    "dthcovid19",
+    "rate",
+    "hosp",
+    "outbreaks",
+  ]
+
+  const getMovementColor = (label, movement) => {
+    label = label.toLowerCase();
+    if (hideMovement || isNaN(movement)) {
+      return "white";
+    } else if ( positiveLabels.includes(label) ) {
+      return !movement ? "yellow" : movement > 0 ? "green": "red";
+    } else if ( negativeLabels.includes(label) ) {
+      return !movement ? "yellow" : movement > 0 ? "red": "green";
+    }
+    return "yellow";
+  }
+  let movementColor = getMovementColor(label, movement);
+
+  const labelAliases = {
+    name: "State",
+    desc_: "Description",
+    test_encounters: "Test Encounters",
+    dthcovid19: "Deaths From Covid 19",
+    hosp: "Hospitalizations",
+  }
+
+  const getLabelAlias = (label) => {
+    let labelLower = label.toLowerCase();
+    if (labelLower in labelAliases) {
+      return labelAliases[labelLower];
+    }
+    return label
+  }
+  let labelAlias = getLabelAlias(label);
 
   return (
     <Card className={className}>
-      <Card.Body className='p-3 text-center'>
-        <Text color={movementColor} className='text-right'>
-          {movementString}{" "}
-          <Icon
-            name={
-              !movement ? "minus" : movement > 0 ? "chevron-up" : "chevron-down"
-            }
-          />
-        </Text>
-        <Header className='m-0'>{total}</Header>
+      <Card.Body className='p-5 text-center'>
+          <Text color={movementColor} className='text-right'>
+            {hideMovement ? "" : movementString + " "}
+            <Icon
+              name={
+                (!movement || hideMovement) ? "minus" : movement > 0 ? "chevron-up" : "chevron-down"
+              }
+            />
+          </Text>
+        <Header className='m-0'>{totalString}</Header>
         <Text color='muted' className='mb-4'>
-          {label}
+          {labelAlias}
         </Text>
       </Card.Body>
     </Card>
