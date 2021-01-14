@@ -47,7 +47,6 @@ export const StatsCard = (_ref) => {
     "name",
     "desc_",
     "date",
-    "counties",
   ]
   const hideMovement = neutralLabels.includes(label.toLowerCase());
 
@@ -64,6 +63,7 @@ export const StatsCard = (_ref) => {
     "rate",
     "hosp",
     "outbreaks",
+    "counties",
   ]
 
   const getMovementColor = (label, movement) => {
@@ -83,8 +83,11 @@ export const StatsCard = (_ref) => {
     name: "State",
     desc_: "Description",
     test_encounters: "Test Encounters",
-    dthcovid19: "Deaths From Covid 19",
-    hosp: "Hospitalizations",
+    deaths: "Deaths Among Cases",
+    dthcovid19: "Deaths From C19",
+    hosp: "Hospitalizations From C19",
+    counties: "Counties Reporting Cases",
+    rate: "Infection Rate Per 100,000"
   }
 
   const getLabelAlias = (label) => {
