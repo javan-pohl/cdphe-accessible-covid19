@@ -1,10 +1,10 @@
 import "./App.css";
 import "tabler-react/dist/Tabler.css";
 
-import { Button, Form } from "tabler-react";
 import React, { useEffect, useState } from "react";
 
 import { API_URL } from "./utils/constants";
+import { Button } from "tabler-react";
 import DailyStats from "./components/DailyStats/DailyStats";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
