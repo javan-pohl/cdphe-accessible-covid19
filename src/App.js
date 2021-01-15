@@ -1,6 +1,7 @@
 import "./App.css";
 import "tabler-react/dist/Tabler.css";
 
+import { Button, Form } from "tabler-react";
 import React, { useEffect, useState } from "react";
 
 import { API_URL } from "./utils/constants";
@@ -12,6 +13,10 @@ import { sortObjectsByDescendingDate } from "./utils/utilities";
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [isDaily, setIsDaily] = useState(true);
+  // diffs are weekly if isDaily is false
+  const offset = isDaily ? 1 : 7;
+  const movementType = isDaily ? "daily" : "weekly";
   const cleanData = (data) => {
     let newData = [];
     data.map((attr) => newData.push(...Object.values(attr)));
@@ -30,12 +35,16 @@ const App = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleToggleSubmit = (event) => {
+    setIsDaily(!isDaily);
+  }
+
   return (
     <section className='app'>
       <Sidebar />
       <section className='display'>
         <Route exact path='/'>
-          <Home today={data[0]} yesterday={data[1]} />
+          <Home current={data[0]} previous={data[offset]} movementType={movementType}/>
         </Route>
         <Route exact path='/daily-cases'>
           <DailyStats data={data} type='Cases' yAccessor='Cases' />
@@ -49,6 +58,13 @@ const App = () => {
         <Route exact path='/daily-tested'>
           <DailyStats data={data} type='Tested' yAccessor='Tested' />
         </Route>
+        <Button
+          className="toggle-daily"
+          onClick={handleToggleSubmit}
+          color={isDaily ? "primary" : "secondary"}
+        >
+            {isDaily ? "Daily" : "Weekly"}
+        </Button>
       </section>
     </section>
   );

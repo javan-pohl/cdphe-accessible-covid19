@@ -39,7 +39,7 @@ export const StatsCard = (_ref) => {
   let movementString = "";
   if ( !isNaN(movement) ) {
     movementString = formatter(movement);
-    movementString = "" + (movement > 0 ? "+" : "") + movementString + movementType;
+    movementString = "" + (movement > 0 ? "+" : "") + movementString + " " + movementType;
   }
 
   const neutralLabels = [
