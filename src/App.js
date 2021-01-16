@@ -3,13 +3,12 @@ import "tabler-react/dist/Tabler.css";
 
 import React, { useEffect, useState } from "react";
 
-import { API_URL } from "./utils/constants";
 import { Button } from "tabler-react";
 import DailyStats from "./components/DailyStats/DailyStats";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
-import { sortObjectsByDescendingDate } from "./utils/utilities";
+import { getDailyStatistics } from "./utils/apiClient";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -17,22 +16,12 @@ const App = () => {
   // diffs are weekly if isDaily is false
   const offset = isDaily ? 1 : 7;
   const movementType = isDaily ? "daily" : "weekly";
-  const cleanData = (data) => {
-    let newData = [];
-    data.map((attr) => newData.push(...Object.values(attr)));
-    let filteredData = newData.filter((attr) => attr.Date !== null);
-    let sortedData = sortObjectsByDescendingDate(filteredData);
-    return sortedData;
-  };
 
   useEffect(() => {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((resJson) => {
-        const cleanedData = cleanData(resJson.features);
-        setData(cleanedData);
-      })
-      .catch((err) => console.log(err));
+    getDailyStatistics()
+      .then(
+        (dailyStats) => setData(dailyStats)
+      )
   }, []);
 
   const handleToggleSubmit = (event) => {
