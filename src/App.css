@@ -27,3 +27,10 @@
   align-items: center;
   padding: 40px;
 }
+
+.toggle-daily {
+  order: -1;
+  align-self: flex-start;
+  margin-bottom: 20px;
+  width: 80px;
+}

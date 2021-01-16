@@ -6,6 +6,15 @@ export function formatComma(num){
     return num;
 }
 
+export function formatDecimal(num, decimalPlaces) {
+    num = num.toString();
+    let [integerPart, fractionalPart] = num.split('.');
+    if ( fractionalPart.length > decimalPlaces ) {
+        fractionalPart = fractionalPart.substring(0, decimalPlaces);
+    }
+    return formatComma(integerPart) + "." + fractionalPart;
+}
+
 export function formatDate(date){
     const monthArray = ["January", "February", "March", "April", "May", "June", "July","August", "September", "October", "November", "December"];
     const dateArray = date.split('/');
@@ -40,3 +49,4 @@ export function sortObjectsByDescendingDate(objects, parseDate) {
     objectsCopy.sort((a, b) => parseDate(b) - parseDate(a));
     return objectsCopy;
 }
+
