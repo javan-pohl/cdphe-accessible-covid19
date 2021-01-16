@@ -44,6 +44,13 @@ const App = () => {
       <Sidebar />
       <section className='display'>
         <Route exact path='/'>
+          <Button
+            className="toggle-daily"
+            onClick={handleToggleSubmit}
+            color={isDaily ? "primary" : "secondary"}
+          >
+              {isDaily ? "Daily" : "Weekly"}
+          </Button>
           <Home current={data[0]} previous={data[offset]} movementType={movementType}/>
         </Route>
         <Route exact path='/daily-cases'>
@@ -58,13 +65,6 @@ const App = () => {
         <Route exact path='/daily-tested'>
           <DailyStats data={data} type='Tested' yAccessor='Tested' />
         </Route>
-        <Button
-          className="toggle-daily"
-          onClick={handleToggleSubmit}
-          color={isDaily ? "primary" : "secondary"}
-        >
-            {isDaily ? "Daily" : "Weekly"}
-        </Button>
       </section>
     </section>
   );
