@@ -53,11 +53,11 @@ export const StatsCard = (_ref) => {
   const positiveLabels = [
     "population",
     "tested",
+    "test_encounters",
   ]
 
   const negativeLabels = [
     "cases",
-    "test_encounters",
     "deaths",
     "dthcovid19",
     "rate",
@@ -82,7 +82,8 @@ export const StatsCard = (_ref) => {
   const labelAliases = {
     name: "State",
     desc_: "Description",
-    test_encounters: "Test Encounters",
+    tested: "Tested For The First Time",
+    test_encounters: "People Tested",
     deaths: "Deaths Among Cases",
     dthcovid19: "Deaths From C19",
     hosp: "Hospitalizations From C19",
