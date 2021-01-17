@@ -35,8 +35,13 @@ const App = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const handleToggleSubmit = (event) => {
-    setIsDaily(!isDaily);
+  const handleToggleDaily = (event) => {
+    let target = event.target;
+    let targetIsDaily = target.classList.contains('daily');
+    let targetIsWeekly = target.classList.contains('weekly');
+    if ((targetIsDaily && !isDaily) || (targetIsWeekly && isDaily)) {
+      setIsDaily(!isDaily);
+    }
   }
 
   return (
@@ -44,13 +49,22 @@ const App = () => {
       <Sidebar />
       <section className='display'>
         <Route exact path='/'>
-          <Button
-            className="toggle-daily"
-            onClick={handleToggleSubmit}
-            color={isDaily ? "primary" : "secondary"}
-          >
-              {isDaily ? "Daily" : "Weekly"}
-          </Button>
+          <div className="toggle-daily">
+            <Button
+              className="toggle-daily daily"
+              onClick={handleToggleDaily}
+              color={isDaily ? "primary" : "secondary"}
+            >
+              Daily
+            </Button>
+            <Button
+              className="toggle-daily weekly"
+              onClick={handleToggleDaily}
+              color={isDaily ? "secondary" : "primary"}
+            >
+              Weekly
+            </Button>
+          </div>
           <Home current={data[0]} previous={data[offset]} movementType={movementType}/>
         </Route>
         <Route exact path='/daily-cases'>
