@@ -1,4 +1,4 @@
-import { formatDate, parseDateMonthDayYear, sortObjectsByDescendingDate } from "./utilities";
+import { formatDate, sortObjectsByDate } from "./utilities";
 
 import { API_URLS } from "./constants";
 
@@ -8,7 +8,7 @@ export async function getDailyStatistics() {
         let newData = [];
         data.map((attr) => newData.push(...Object.values(attr)));
         let filteredData = newData.filter((attr) => attr.Date !== null);
-        return sortObjectsByDescendingDate(filteredData);
+        return sortObjectsByDate(filteredData, false);
     }
 
     return await fetch(API_URLS.dailyStatistics)
@@ -50,7 +50,7 @@ export async function getTestingStatistics(testType) {
         "7-Day Average Percent Positivity": "percentPositive7DayAvg",
         "Total Tests per 100K People": "testsPer100KPeople",
         "People Tested at Non-CDPHE (Commerical) Labs": "testedAtCommercialLabs",
-        "People Tested at CDPHE State Lab": "testedAtStateLab",
+        "People Tested at CDPHE State Lab": "testedAtStateLabs",
         "Antibody Tests Performed": "antibodyTests",
         "Number of negative tests": "negativeTests",
         "Number of positive tests": "positiveTests",
@@ -104,8 +104,9 @@ export async function getTestingStatistics(testType) {
                 return agg;
            }
         , {})
-        let sortedAttributes = sortObjectsByDescendingDate(
+        let sortedAttributes = sortObjectsByDate(
             Object.values(groupedByDate),
+            true,
             x => {
                 return new Date(x.date);
             }
@@ -113,10 +114,23 @@ export async function getTestingStatistics(testType) {
         return sortedAttributes;
     }
 
+    function addComputedFields(data) {
+        return data.map(x => {
+            x['totalTested'] = null;
+            if (('testedAtCommercialLabs' in x) && ('testedAtStateLabs' in x)){
+                x['totalTested'] = x.testedAtCommercialLabs + x.testedAtStateLabs;
+            }
+            return x;
+        })
+    }
+
     return await fetch(buildUrl())
         .then((res) => res.json())
         .then((resJson) => {
             return cleanTestingStats(resJson);
+        })
+        .then((cleanedData) => {
+            return addComputedFields(cleanedData);
         })
         .catch((err) => console.log(err));
 }

@@ -56,14 +56,23 @@ export function parseDateMonthDayYear(date) {
     return new Date(`${year}-${month}-${day}`);
 }
 
-export function sortObjectsByDescendingDate(objects, parseDate) {
+export function sortObjectsByDate(objects, ascending, parseDate) {
     // sorts objects by date from most recent to least recent
     // parseDate must take an object argument and return a Javascript Date
     let objectsCopy = objects.slice();
     if (parseDate === undefined) {
         parseDate = obj => parseDateMonthDayYear(obj.Date);
     }
-    objectsCopy.sort((a, b) => parseDate(b) - parseDate(a));
+    if (ascending === undefined) {
+        ascending = true;
+    }
+    let comparator;
+    if ( ascending ) {
+        comparator = (a, b) => parseDate(a) - parseDate(b)
+    } else {
+        comparator = (a, b) => parseDate(b) - parseDate(a)
+    }
+    objectsCopy.sort(comparator);
     return objectsCopy;
 }
 
