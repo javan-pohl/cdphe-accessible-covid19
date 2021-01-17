@@ -36,9 +36,9 @@ const App = () => {
   }, []);
 
   const handleToggleDaily = (event) => {
-    let target = event.target;
-    let targetIsDaily = target.classList.contains('daily');
-    let targetIsWeekly = target.classList.contains('weekly');
+    const target = event.target;
+    const targetIsDaily = target.classList.contains('daily');
+    const targetIsWeekly = target.classList.contains('weekly');
     if ((targetIsDaily && !isDaily) || (targetIsWeekly && isDaily)) {
       setIsDaily(!isDaily);
     }
@@ -49,16 +49,16 @@ const App = () => {
       <Sidebar />
       <section className='display'>
         <Route exact path='/'>
-          <div className="toggle-daily">
+          <div className="toggle-daily" role="button">
             <Button
-              className="toggle-daily daily"
+              className="daily"
               onClick={handleToggleDaily}
               color={isDaily ? "primary" : "secondary"}
             >
               Daily
             </Button>
             <Button
-              className="toggle-daily weekly"
+              className="weekly"
               onClick={handleToggleDaily}
               color={isDaily ? "secondary" : "primary"}
             >
