@@ -2,16 +2,20 @@ import "./App.css";
 import "tabler-react/dist/Tabler.css";
 
 import React, { useEffect, useState } from "react";
+import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
 
 import { Button } from "tabler-react";
 import DailyStats from "./components/DailyStats/DailyStats";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
-import { getDailyStatistics } from "./utils/apiClient";
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [pcrTestData, setPcrTestData] = useState([]);
+  console.log('pcrTestData: ', pcrTestData);
+  const [antibodyTestData, setAntibodyTestData] = useState([]);
+  console.log('antibodyTestData: ', antibodyTestData);
   const [isDaily, setIsDaily] = useState(true);
   // diffs are weekly if isDaily is false
   const offset = isDaily ? 1 : 7;
@@ -20,7 +24,19 @@ const App = () => {
   useEffect(() => {
     getDailyStatistics()
       .then(
-        (dailyStats) => setData(dailyStats)
+        (dailyStatsData) => setData(dailyStatsData)
+      )
+    getTestingStatistics('pcr')
+      .then(
+        (data) => {
+          setPcrTestData(data);
+        }
+      )
+    getTestingStatistics('antibody')
+      .then(
+        (data) => {
+          setAntibodyTestData(data);
+        }
       )
   }, []);
 

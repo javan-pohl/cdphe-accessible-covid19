@@ -15,8 +15,22 @@ export function formatDecimal(num, decimalPlaces) {
     return formatComma(integerPart) + "." + fractionalPart;
 }
 
-export function formatDate(date){
+export function formatDate(date, format){
     const monthArray = ["January", "February", "March", "April", "May", "June", "July","August", "September", "October", "November", "December"];
+    const monthTwoDigitFormat = {
+        January: "01",
+        February: "02",
+        March: "03",
+        April: "04",
+        May: "05",
+        June: "06",
+        July: "07",
+        August: "08",
+        September: "09",
+        October: "10",
+        November: "11",
+        December: "12",
+    }
     const dateArray = date.split('/');
 
     let formattedMonth;
@@ -29,6 +43,9 @@ export function formatDate(date){
     const month = monthArray[formattedMonth-1];
     const day = dateArray[1];
     const year = dateArray[2];
+    if (format === 'yyyy-mm-dd') {
+        return `${year}-${monthTwoDigitFormat[month]}-${day}`
+    }
     return `${month} ${day}, ${year}`
 }
 
