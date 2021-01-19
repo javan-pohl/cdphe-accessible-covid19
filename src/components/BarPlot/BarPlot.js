@@ -10,8 +10,11 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
   });
 
   const frameProps = {
+    /* --- Data --- */
     data: data,
+    /* --- Size --- */
     size: [860, 400],
+    /* --- Layout --- */
     margin: {
       left: 80,
       bottom: 90,
@@ -19,8 +22,19 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
       top: 40,
     },
     type: "bar",
+    /* --- Process --- */
     oAccessor: "date",
     rAccessor: ["testedAtCommercialLabs", "testedAtStateLabs"],
+
+    /* --- Customize --- */
+    style: (d) => {
+      return {
+        fill: fillColors[d.rIndex % fillColors.length],
+        stroke: "white",
+      };
+    },
+
+    /* --- Annotate --- */
     oLabel: (d) => {
       if (d.endsWith("01")) {
         const date = new Date(d);
@@ -28,12 +42,6 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
         const formatted = formatter.format(date);
         return <text fontSize={12}>{formatted}</text>;
       }
-    },
-    style: (d) => {
-      return {
-        fill: fillColors[d.rIndex % fillColors.length],
-        stroke: "white",
-      };
     },
     axes: [
       {
@@ -50,6 +58,7 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
       },
     ],
   };
+
   return <OrdinalFrame {...frameProps} />;
 };
 

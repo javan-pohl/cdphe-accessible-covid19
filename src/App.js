@@ -1,15 +1,18 @@
 import "./App.css";
 import "tabler-react/dist/Tabler.css";
 
-import { Button, Card } from "tabler-react";
 import React, { useEffect, useState } from "react";
 import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
 
-import BarPlot from "./components/DailyStats/BarPlot/BarPlot";
-import DailyStats from "./components/DailyStats/DailyStats";
+import BarPlot from "./components/BarPlot/BarPlot";
+import { Button } from "tabler-react";
+import Card from "./components/Card/Card";
+import Graph from './components/Graph/Graph';
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
+
+;
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -57,26 +60,30 @@ const App = () => {
           </Button>
           <Home current={data[0]} previous={data[offset]} movementType={movementType}/>
         </Route>
-        <Route exact path='/daily-cases'>
-          <DailyStats data={data} type='Cases' yAccessor='Cases' />
+        <Route exact path='/daily-cases' >
+          <Card title="Daily Colorado Covid-19 Cases">
+            <Graph data={data} type={'Cases'} yAccessor={'Cases'}/>
+          </Card>
         </Route>
         <Route exact path='/daily-hosp'>
-          <DailyStats data={data} type='Hospitalized' yAccessor='Hosp' />
+          <Card title="Daily Colorado Covid-19 Hospitalized">
+            <Graph data={data} type={'Hospitalized'} yAccessor={'Hosp'}/>
+          </Card>
         </Route>
         <Route exact path='/daily-deaths'>
-          <DailyStats data={data} type='Deaths' yAccessor='Deaths' />
+          <Card title="Daily Colorado Covid-19 Deaths">
+            <Graph data={data} type={'Deaths'} yAccessor={'Deaths'}/>
+          </Card>
+
         </Route>
         <Route exact path='/daily-tested'>
-          <DailyStats data={data} type='Tested' yAccessor='Tested' />
-          <Card>
-            <Card.Header>
-              <Card.Title>Daily PCR Tests Administered</Card.Title>
-            </Card.Header>
-            <Card.Body>
+          <Card title="Daily Colorado Covid-19 Tested">
+            <Graph data={data} type={'Tested'} yAccessor={'Tested'}/>
+          </Card>
+          <Card title="Daily PCR Tests Administered">
               <BarPlot
                 data={pcrTestData}
-             />
-            </Card.Body>
+               />
           </Card>
         </Route>
       </section>
