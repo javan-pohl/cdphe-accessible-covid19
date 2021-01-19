@@ -75,8 +75,6 @@ const App = () => {
             <Card.Body>
               <BarPlot
                 data={pcrTestData}
-                oAccessor={"date"}
-                rAccessor={['testedAtCommercialLabs', 'testedAtStateLabs']}
              />
             </Card.Body>
           </Card>
