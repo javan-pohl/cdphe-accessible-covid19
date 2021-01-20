@@ -1,3 +1,5 @@
+import "./BarPlot.css";
+
 import OrdinalFrame from "semiotic/lib/OrdinalFrame";
 import React from "react";
 
@@ -34,6 +36,20 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
       };
     },
 
+    /* --- Interact --- */
+    pieceHoverAnnotation: [
+      {
+        type: "highlight",
+        style: {
+          stroke: "white",
+          fill: "red",
+          strokeWidth: 4,
+          strokeOpacity: 0.5,
+        },
+      },
+      { type: "frame-hover" },
+    ],
+
     /* --- Annotate --- */
     oLabel: (d) => {
       if (d.endsWith("01")) {
@@ -57,6 +73,17 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
         },
       },
     ],
+    hoverAnnotation: true,
+    tooltipContent: (d) => {
+      return (
+        <div className="tooltip-content">
+          <p>Date: {d.date}</p>
+          <p>Tests conducted: {d.totalTested}</p>
+          <p>Tests at commercial labs: {d.testedAtCommercialLabs}</p>
+          <p>Tests at state labs: {d.testedAtStateLabs}</p>
+        </div>
+      );
+    },
   };
 
   return <OrdinalFrame {...frameProps} />;

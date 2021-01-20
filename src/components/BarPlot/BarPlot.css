@@ -1,0 +1,11 @@
+.tooltip-content {
+    background: white;
+    position: relative;
+    border: 1px solid #ddd;
+    color: black;
+    padding: 10px;
+    z-index: 100;
+    transform: translateX(-100%) translateY(-30px);
+    min-width: 120px;
+}
+
