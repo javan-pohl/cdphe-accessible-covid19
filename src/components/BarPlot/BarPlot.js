@@ -71,7 +71,17 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
         tickFormat: (x) => {
           return x / 1000 + "K";
         },
+        tickLineGenerator: (x) => "",
       },
+      {
+        orient: "bottom",
+        label: {
+          name: "Date",
+          locationDistance: 55,
+        },
+        tickFormat: (x) => "",
+        tickLineGenerator: (x) => "",
+      }
     ],
     hoverAnnotation: true,
     tooltipContent: (d) => {
