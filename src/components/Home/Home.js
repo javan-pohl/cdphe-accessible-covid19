@@ -1,3 +1,4 @@
+import { Button } from "tabler-react";
 import { Grid } from "tabler-react";
 import React from "react";
 import { StatsCard } from "./StatsCard";
@@ -8,18 +9,48 @@ const GridContainer = (props) => (
   </Grid.Col>
 );
 
-export const Home = (props) => {
-  const { current, previous, movementType } = props;
+export const Home = ({ data, isDaily, toggleDaily }) => {
+  const current = data[0];
+  const previous = isDaily ? data[1] : data[7];
+
+  const handleClickDaily = (e) => {
+    if (!isDaily) {
+      toggleDaily();
+    }
+  };
+
+  const handleClickWeekly = (e) => {
+    if (isDaily) {
+      toggleDaily();
+    }
+  };
 
   return (
     <div>
+      <div className="toggle-daily" role="button">
+        <Button
+          className="daily"
+          onClick={handleClickDaily}
+          color={isDaily ? "primary" : "secondary"}
+        >
+          Daily
+        </Button>
+        <Button
+          className="weekly"
+          onClick={handleClickWeekly}
+          color={isDaily ? "secondary" : "primary"}
+        >
+          Weekly
+        </Button>
+      </div>
+
       {current && previous && (
         <Grid.Row cards deck>
           {Object.keys(current).map((key) => (
             <GridContainer>
               <StatsCard
                 movement={current[key] - previous[key]}
-                movementType={movementType}
+                movementType={isDaily ? "daily" : "weekly"}
                 total={current[key]}
                 label={key}
               />
