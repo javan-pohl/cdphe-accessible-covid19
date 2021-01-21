@@ -4,7 +4,7 @@ import OrdinalFrame from "semiotic/lib/OrdinalFrame";
 import React from "react";
 
 const BarPlot = ({ data, oAccessor, rAccessor }) => {
-  const fillColors = ["#2e8b57", "#e4d96f", "red", "green"];
+  const fillColors = ["#0000FF", "#ff6945"];
   const formatter = new Intl.DateTimeFormat("en-US", {
     year: "2-digit",
     month: "short",
@@ -42,7 +42,7 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
         type: "highlight",
         style: {
           stroke: "white",
-          fill: "red",
+          fill: "yellow",
           strokeWidth: 4,
           strokeOpacity: 0.5,
         },
@@ -71,7 +71,6 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
         tickFormat: (x) => {
           return x / 1000 + "K";
         },
-        tickLineGenerator: (x) => "",
       },
       {
         orient: "bottom",
