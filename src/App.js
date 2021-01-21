@@ -12,8 +12,6 @@ import { sortObjectsByDescendingDate } from "./utils/utilities";
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [isDaily, setIsDaily] = useState(true);
-  // diffs are weekly if isDaily is false
 
   const cleanData = (data) => {
     let newData = [];
@@ -40,8 +38,6 @@ const App = () => {
         <Route exact path="/">
           <Home
             data={data.slice(0, 8)}
-            isDaily={isDaily}
-            toggleDaily={() => setIsDaily(!isDaily)}
           />
         </Route>
         <Route exact path="/daily-cases">

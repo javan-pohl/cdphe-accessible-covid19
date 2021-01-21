@@ -1,6 +1,7 @@
+import React, { useState } from "react";
+
 import { Button } from "tabler-react";
 import { Grid } from "tabler-react";
-import React from "react";
 import { StatsCard } from "./StatsCard";
 
 const GridContainer = (props) => (
@@ -9,19 +10,16 @@ const GridContainer = (props) => (
   </Grid.Col>
 );
 
-export const Home = ({ data, isDaily, toggleDaily }) => {
+export const Home = ({ data }) => {
+  const [isDaily, setIsDaily] = useState(true);
+  // diffs are weekly if isDaily is false
+
   const current = data[0];
   const previous = isDaily ? data[1] : data[7];
 
-  const handleClickDaily = (e) => {
-    if (!isDaily) {
-      toggleDaily();
-    }
-  };
-
-  const handleClickWeekly = (e) => {
-    if (isDaily) {
-      toggleDaily();
+  const handleToggleDaily = (dailyButton) => {
+    if ((dailyButton && !isDaily) || (!dailyButton && isDaily)) {
+      setIsDaily(!isDaily);
     }
   };
 
@@ -30,14 +28,14 @@ export const Home = ({ data, isDaily, toggleDaily }) => {
       <div className="toggle-daily" role="button">
         <Button
           className="daily"
-          onClick={handleClickDaily}
+          onClick={(e) => handleToggleDaily(true)}
           color={isDaily ? "primary" : "secondary"}
         >
           Daily
         </Button>
         <Button
           className="weekly"
-          onClick={handleClickWeekly}
+          onClick={(e) => handleToggleDaily(false)}
           color={isDaily ? "secondary" : "primary"}
         >
           Weekly
