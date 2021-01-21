@@ -5,23 +5,16 @@ import React, { useEffect, useState } from "react";
 import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
 
 import BarPlot from "./components/BarPlot/BarPlot";
-import { Button } from "tabler-react";
 import Card from "./components/Card/Card";
-import Graph from './components/Graph/Graph';
+import Graph from "./components/Graph/Graph";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
-
-;
 
 const App = () => {
   const [data, setData] = useState([]);
   const [pcrTestData, setPcrTestData] = useState([]);
   const [antibodyTestData, setAntibodyTestData] = useState([]);
-  const [isDaily, setIsDaily] = useState(true);
-  // diffs are weekly if isDaily is false
-  const offset = isDaily ? 1 : 7;
-  const movementType = isDaily ? "daily" : "weekly";
 
   useEffect(() => {
     getDailyStatistics()
@@ -42,23 +35,14 @@ const App = () => {
       )
   }, []);
 
-  const handleToggleDailyClick = (event) => {
-    setIsDaily(!isDaily);
-  }
-  console.log('pcrTestData: ', pcrTestData);
   return (
-    <section className='app'>
+    <section className="app">
       <Sidebar />
       <section className='display'>
         <Route exact path='/'>
-          <Button
-            className="toggle-daily"
-            onClick={handleToggleDailyClick}
-            color={isDaily ? "primary" : "secondary"}
-          >
-              {isDaily ? "Daily" : "Weekly"}
-          </Button>
-          <Home current={data[0]} previous={data[offset]} movementType={movementType}/>
+          <Home
+            data={data.slice(0, 8)}
+          />
         </Route>
         <Route exact path='/daily-cases' >
           <Card title="Daily Colorado Covid-19 Cases">
@@ -74,7 +58,6 @@ const App = () => {
           <Card title="Daily Colorado Covid-19 Deaths">
             <Graph data={data} type={'Deaths'} yAccessor={'Deaths'}/>
           </Card>
-
         </Route>
         <Route exact path='/daily-tested'>
           <Card title="Daily Colorado Covid-19 Tested">
