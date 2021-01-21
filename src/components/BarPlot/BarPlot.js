@@ -28,7 +28,9 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
     oAccessor: "date",
     rAccessor: ["testedAtCommercialLabs", "testedAtStateLabs"],
 
+
     /* --- Customize --- */
+    title: "Daily PCR Tests Administered",
     style: (d) => {
       return {
         fill: fillColors[d.rIndex % fillColors.length],
