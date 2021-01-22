@@ -1,9 +1,9 @@
-import "./BarPlot.css";
+import "./DailyPcrTestBarPlot.css";
 
 import OrdinalFrame from "semiotic/lib/OrdinalFrame";
 import React from "react";
 
-const BarPlot = ({ data, oAccessor, rAccessor }) => {
+const DailyPcrTestBarPlot = ({ data }) => {
   const fillColors = ["#0000FF", "#ff6945"];
   const formatter = new Intl.DateTimeFormat("en-US", {
     year: "2-digit",
@@ -100,4 +100,4 @@ const BarPlot = ({ data, oAccessor, rAccessor }) => {
   return <OrdinalFrame {...frameProps} />;
 };
 
-export default BarPlot;
+export default DailyPcrTestBarPlot;

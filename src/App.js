@@ -4,8 +4,9 @@ import "tabler-react/dist/Tabler.css";
 import React, { useEffect, useState } from "react";
 import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
 
-import BarPlot from "./components/BarPlot/BarPlot";
 import Card from "./components/Card/Card";
+import DailyAntibodyTestBarPlot from "./components/DailyAntibodyTestBarPlot/DailyAntibodyTestBarPlot";
+import DailyPcrTestBarPlot from "./components/DailyPcrTestBarPlot/DailyPcrTestBarPlot";
 import Graph from "./components/Graph/Graph";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
@@ -64,9 +65,14 @@ const App = () => {
             <Graph data={data} type={'Tested'} yAccessor={'Tested'}/>
           </Card>
           <Card title="Daily PCR Tests Administered">
-              <BarPlot
+              <DailyPcrTestBarPlot
                 data={pcrTestData}
                />
+          </Card>
+          <Card title="Daily Antibody Tests Administered">
+            <DailyAntibodyTestBarPlot
+              data={antibodyTestData}
+            />
           </Card>
         </Route>
       </section>
