@@ -16,8 +16,6 @@ const App = () => {
   const [pcrTestData, setPcrTestData] = useState([]);
   const [antibodyTestData, setAntibodyTestData] = useState([]);
 
-  console.log("pcrTestData: ", pcrTestData);
-  console.log("antibodyTestData: ", antibodyTestData);
   useEffect(() => {
     getDailyStatistics().then((dailyStatsData) => setData(dailyStatsData));
     getTestingStatistics("pcr").then((data) => {
