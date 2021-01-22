@@ -5,12 +5,11 @@ import React, { useEffect, useState } from "react";
 import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
 
 import Card from "./components/Card/Card";
-import DailyAntibodyTestBarPlot from "./components/DailyAntibodyTestBarPlot/DailyAntibodyTestBarPlot";
-import DailyPcrTestBarPlot from "./components/DailyPcrTestBarPlot/DailyPcrTestBarPlot";
 import Graph from "./components/Graph/Graph";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
+import StackedBarPlot from "./components/StackedBarPlot/StackedBarPlot"
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -65,14 +64,22 @@ const App = () => {
             <Graph data={data} type={'Tested'} yAccessor={'Tested'}/>
           </Card>
           <Card title="Daily PCR Tests Administered">
-              <DailyPcrTestBarPlot
+              <StackedBarPlot
                 data={pcrTestData}
+                fillColors={["#0000FF", "#FF6945"]}
+                rAccessor={["testedAtCommercialLabs", "testedAtStateLabs"]}
+                title={"Daily PCR Tests Administered"}
+                rLabels={["Commercial Labs", "State Labs"]}
                />
           </Card>
           <Card title="Daily Antibody Tests Administered">
-            <DailyAntibodyTestBarPlot
-              data={antibodyTestData}
-            />
+              <StackedBarPlot
+                data={antibodyTestData}
+                fillColors={["#FF6945", "#0000FF"]}
+                rAccessor={["positiveTests", "negativeTests"]}
+                title={"Daily Antibody Tests Administered"}
+                rLabels={["Positive", "Negative"]}
+               />
           </Card>
         </Route>
       </section>

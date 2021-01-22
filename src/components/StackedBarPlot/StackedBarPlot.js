@@ -1,10 +1,9 @@
-import "./DailyPcrTestBarPlot.css";
+import "./StackedBarPlot.css";
 
 import OrdinalFrame from "semiotic/lib/OrdinalFrame";
 import React from "react";
 
-const DailyPcrTestBarPlot = ({ data }) => {
-  const fillColors = ["#0000FF", "#ff6945"];
+const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
   const formatter = new Intl.DateTimeFormat("en-US", {
     year: "2-digit",
     month: "short",
@@ -26,11 +25,12 @@ const DailyPcrTestBarPlot = ({ data }) => {
     type: "bar",
     /* --- Process --- */
     oAccessor: "date",
-    rAccessor: ["testedAtCommercialLabs", "testedAtStateLabs"],
+    // rAccessor: ["positiveTests", "negativeTests"],
+    rAccessor: rAccessor,
 
 
     /* --- Customize --- */
-    title: "Daily PCR Tests Administered",
+    title: title,
     style: (d) => {
       return {
         fill: fillColors[d.rIndex % fillColors.length],
@@ -66,8 +66,8 @@ const DailyPcrTestBarPlot = ({ data }) => {
         orient: "left",
         label: (
           <text textAnchor="middle">
-            <tspan fill={fillColors[0]}>Commercial Labs</tspan> +{" "}
-            <tspan fill={fillColors[1]}>State Labs</tspan>
+            <tspan fill={fillColors[0]}>{rLabels[0]}</tspan> +{" "}
+            <tspan fill={fillColors[1]}>{rLabels[1]}</tspan>
           </text>
         ),
         tickFormat: (x) => {
@@ -88,10 +88,9 @@ const DailyPcrTestBarPlot = ({ data }) => {
     tooltipContent: (d) => {
       return (
         <div className="tooltip-content">
-          <p>Date: {d.date}</p>
-          <p>Tests conducted: {d.totalTested}</p>
-          <p>Tests at commercial labs: {d.testedAtCommercialLabs}</p>
-          <p>Tests at state labs: {d.testedAtStateLabs}</p>
+            <p>Date: {d.date}</p>
+            <p>{rLabels[0]}: {d[rAccessor[0]]}</p>
+            <p>{rLabels[1]}: {d[rAccessor[1]]}</p>
         </div>
       );
     },
@@ -100,4 +99,4 @@ const DailyPcrTestBarPlot = ({ data }) => {
   return <OrdinalFrame {...frameProps} />;
 };
 
-export default DailyPcrTestBarPlot;
+export default StackedBarPlot;
