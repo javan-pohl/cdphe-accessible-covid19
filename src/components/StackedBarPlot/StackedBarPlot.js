@@ -28,7 +28,6 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
     // rAccessor: ["positiveTests", "negativeTests"],
     rAccessor: rAccessor,
 
-
     /* --- Customize --- */
     title: title,
     style: (d) => {
@@ -82,15 +81,19 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
         },
         tickFormat: (x) => "",
         tickLineGenerator: (x) => "",
-      }
+      },
     ],
     hoverAnnotation: true,
     tooltipContent: (d) => {
       return (
         <div className="tooltip-content">
-            <p>Date: {d.date}</p>
-            <p>{rLabels[0]}: {d[rAccessor[0]]}</p>
-            <p>{rLabels[1]}: {d[rAccessor[1]]}</p>
+          <p>Date: {d.date}</p>
+          <p>
+            {rLabels[0]}: {d[rAccessor[0]]}
+          </p>
+          <p>
+            {rLabels[1]}: {d[rAccessor[1]]}
+          </p>
         </div>
       );
     },

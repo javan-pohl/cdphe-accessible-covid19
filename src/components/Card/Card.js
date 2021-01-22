@@ -2,7 +2,6 @@ import "../../../node_modules/tabler-react/dist/Tabler.css";
 import './Card.css'
 
 import { Card } from "tabler-react";
-import Graph from '../Graph/Graph';
 import React from "react";
 
 const MyCard = (props) => {

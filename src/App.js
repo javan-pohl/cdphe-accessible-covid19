@@ -9,77 +9,68 @@ import Graph from "./components/Graph/Graph";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
-import StackedBarPlot from "./components/StackedBarPlot/StackedBarPlot"
+import StackedBarPlot from "./components/StackedBarPlot/StackedBarPlot";
 
 const App = () => {
   const [data, setData] = useState([]);
   const [pcrTestData, setPcrTestData] = useState([]);
   const [antibodyTestData, setAntibodyTestData] = useState([]);
 
+  console.log("pcrTestData: ", pcrTestData);
+  console.log("antibodyTestData: ", antibodyTestData);
   useEffect(() => {
-    getDailyStatistics()
-      .then(
-        (dailyStatsData) => setData(dailyStatsData)
-      )
-    getTestingStatistics('pcr')
-      .then(
-        (data) => {
-          setPcrTestData(data);
-        }
-      )
-    getTestingStatistics('antibody')
-      .then(
-        (data) => {
-          setAntibodyTestData(data);
-        }
-      )
+    getDailyStatistics().then((dailyStatsData) => setData(dailyStatsData));
+    getTestingStatistics("pcr").then((data) => {
+      setPcrTestData(data);
+    });
+    getTestingStatistics("antibody").then((data) => {
+      setAntibodyTestData(data);
+    });
   }, []);
 
   return (
     <section className="app">
       <Sidebar />
-      <section className='display'>
-        <Route exact path='/'>
-          <Home
-            data={data.slice(0, 8)}
-          />
+      <section className="display">
+        <Route exact path="/">
+          <Home data={data.slice(0, 8)} />
         </Route>
-        <Route exact path='/daily-cases' >
+        <Route exact path="/daily-cases">
           <Card title="Daily Colorado Covid-19 Cases">
-            <Graph data={data} type={'Cases'} yAccessor={'Cases'}/>
+            <Graph data={data} type={"Cases"} yAccessor={"Cases"} />
           </Card>
         </Route>
-        <Route exact path='/daily-hosp'>
+        <Route exact path="/daily-hosp">
           <Card title="Daily Colorado Covid-19 Hospitalized">
-            <Graph data={data} type={'Hospitalized'} yAccessor={'Hosp'}/>
+            <Graph data={data} type={"Hospitalized"} yAccessor={"Hosp"} />
           </Card>
         </Route>
-        <Route exact path='/daily-deaths'>
+        <Route exact path="/daily-deaths">
           <Card title="Daily Colorado Covid-19 Deaths">
-            <Graph data={data} type={'Deaths'} yAccessor={'Deaths'}/>
+            <Graph data={data} type={"Deaths"} yAccessor={"Deaths"} />
           </Card>
         </Route>
-        <Route exact path='/daily-tested'>
+        <Route exact path="/daily-tested">
           <Card title="Daily Colorado Covid-19 Tested">
-            <Graph data={data} type={'Tested'} yAccessor={'Tested'}/>
+            <Graph data={data} type={"Tested"} yAccessor={"Tested"} />
           </Card>
           <Card title="Daily PCR Tests Administered">
-              <StackedBarPlot
-                data={pcrTestData}
-                fillColors={["#0000FF", "#FF6945"]}
-                rAccessor={["testedAtCommercialLabs", "testedAtStateLabs"]}
-                title={"Daily PCR Tests Administered"}
-                rLabels={["Commercial Labs", "State Labs"]}
-               />
+            <StackedBarPlot
+              data={pcrTestData}
+              fillColors={["#0000FF", "#FF6945"]}
+              rAccessor={["testedAtCommercialLabs", "testedAtStateLabs"]}
+              title={"Daily PCR Tests Administered"}
+              rLabels={["Commercial Labs", "State Labs"]}
+            />
           </Card>
           <Card title="Daily Antibody Tests Administered">
-              <StackedBarPlot
-                data={antibodyTestData}
-                fillColors={["#FF6945", "#0000FF"]}
-                rAccessor={["positiveTests", "negativeTests"]}
-                title={"Daily Antibody Tests Administered"}
-                rLabels={["Positive", "Negative"]}
-               />
+            <StackedBarPlot
+              data={antibodyTestData}
+              fillColors={["#FF6945", "#0000FF"]}
+              rAccessor={["positiveTests", "negativeTests"]}
+              title={"Daily Antibody Tests Administered"}
+              rLabels={["Positive", "Negative"]}
+            />
           </Card>
         </Route>
       </section>
