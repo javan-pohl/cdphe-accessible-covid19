@@ -2,33 +2,28 @@ import "./App.css";
 import "tabler-react/dist/Tabler.css";
 
 import React, { useEffect, useState } from "react";
+import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
 
-import { API_URL } from "./utils/constants";
-import DailyStats from "./components/DailyStats/DailyStats";
+import Card from "./components/Card/Card";
+import Graph from "./components/Graph/Graph";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
-import { sortObjectsByDescendingDate } from "./utils/utilities";
+import StackedBarPlot from "./components/StackedBarPlot/StackedBarPlot";
 
 const App = () => {
   const [data, setData] = useState([]);
-
-  const cleanData = (data) => {
-    let newData = [];
-    data.map((attr) => newData.push(...Object.values(attr)));
-    let filteredData = newData.filter((attr) => attr.Date !== null);
-    let sortedData = sortObjectsByDescendingDate(filteredData);
-    return sortedData;
-  };
+  const [pcrTestData, setPcrTestData] = useState([]);
+  const [antibodyTestData, setAntibodyTestData] = useState([]);
 
   useEffect(() => {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((resJson) => {
-        const cleanedData = cleanData(resJson.features);
-        setData(cleanedData);
-      })
-      .catch((err) => console.log(err));
+    getDailyStatistics().then((dailyStatsData) => setData(dailyStatsData));
+    getTestingStatistics("pcr").then((data) => {
+      setPcrTestData(data);
+    });
+    getTestingStatistics("antibody").then((data) => {
+      setAntibodyTestData(data);
+    });
   }, []);
 
   return (
@@ -36,21 +31,45 @@ const App = () => {
       <Sidebar />
       <section className="display">
         <Route exact path="/">
-          <Home
-            data={data.slice(0, 8)}
-          />
+          <Home data={data.slice(0, 8)} />
         </Route>
         <Route exact path="/daily-cases">
-          <DailyStats data={data} type="Cases" yAccessor="Cases" />
+          <Card title="Daily Colorado Covid-19 Cases">
+            <Graph data={data} type={"Cases"} yAccessor={"Cases"} />
+          </Card>
         </Route>
         <Route exact path="/daily-hosp">
-          <DailyStats data={data} type="Hospitalized" yAccessor="Hosp" />
+          <Card title="Daily Colorado Covid-19 Hospitalized">
+            <Graph data={data} type={"Hospitalized"} yAccessor={"Hosp"} />
+          </Card>
         </Route>
         <Route exact path="/daily-deaths">
-          <DailyStats data={data} type="Deaths" yAccessor="Deaths" />
+          <Card title="Daily Colorado Covid-19 Deaths">
+            <Graph data={data} type={"Deaths"} yAccessor={"Deaths"} />
+          </Card>
         </Route>
         <Route exact path="/daily-tested">
-          <DailyStats data={data} type="Tested" yAccessor="Tested" />
+          <Card title="Daily Colorado Covid-19 Tested">
+            <Graph data={data} type={"Tested"} yAccessor={"Tested"} />
+          </Card>
+          <Card title="Daily PCR Tests Administered">
+            <StackedBarPlot
+              data={pcrTestData}
+              fillColors={["#0000FF", "#FF6945"]}
+              rAccessor={["testedAtCommercialLabs", "testedAtStateLabs"]}
+              title={"Daily PCR Tests Administered"}
+              rLabels={["Commercial Labs", "State Labs"]}
+            />
+          </Card>
+          <Card title="Daily Antibody Tests Administered">
+            <StackedBarPlot
+              data={antibodyTestData}
+              fillColors={["#FF6945", "#0000FF"]}
+              rAccessor={["positiveTests", "negativeTests"]}
+              title={"Daily Antibody Tests Administered"}
+              rLabels={["Positive", "Negative"]}
+            />
+          </Card>
         </Route>
       </section>
     </section>
