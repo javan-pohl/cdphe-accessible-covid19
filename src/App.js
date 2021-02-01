@@ -6,6 +6,7 @@ import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
 
 import Card from "./components/Card/Card";
 import Graph from "./components/Graph/Graph";
+import Table from "./components/Table/Table";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -25,7 +26,9 @@ const App = () => {
       setAntibodyTestData(data);
     });
   }, []);
-
+  
+  console.log('graphData', data)
+  
   return (
     <section className="app">
       <Sidebar />
@@ -36,6 +39,7 @@ const App = () => {
         <Route exact path="/daily-cases">
           <Card title="Daily Colorado Covid-19 Cases">
             <Graph data={data} type={"Cases"} yAccessor={"Cases"} />
+            <Table data={data} />
           </Card>
         </Route>
         <Route exact path="/daily-hosp">
