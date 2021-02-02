@@ -90,12 +90,13 @@ export async function getTestingStatistics(testType) {
   };
 
   function buildUrl() {
-    const outFields = ["Desc_", "Metric", "Value", "Attr_Date"].join(",");
+    const outFields = ["Desc_", "Metric", "Value", "Date"].join(",");
     const queryString = `?where=1%3D1&outFields=${outFields}&outSR=4326&f=json`;
     return API_URLS.testPositivity + queryString;
   }
 
   function cleanTestingStats({ features }) {
+    console.log('features: ', features)
     let allAttributes = features.map((x) => x.attributes);
     let filteredAttributes = allAttributes.filter((x) => {
       return (
@@ -103,7 +104,7 @@ export async function getTestingStatistics(testType) {
       );
     });
     let groupedByDate = filteredAttributes.reduce((agg, obj) => {
-      const formattedDate = formatDate(obj.Attr_Date, "yyyy-mm-dd");
+      const formattedDate = formatDate(obj.Date, "yyyy-mm-dd");
       let key = metricAliases[obj.Metric];
       let metricAgg = metricAggregators[obj.Metric];
       if (formattedDate in agg) {
