@@ -1,16 +1,14 @@
-import './Graph.css';
-
-import { formatComma, formatDate } from '../../utils/utilities'
-
-import Alert from '../Alert/Alert';
 import React from "react";
 import XYFrame from "semiotic/lib/XYFrame";
 import { curveCatmullRom } from "d3-shape"
 import { scaleTime } from "d3-scale"
+import { formatComma, formatDate } from '../../../utils/utilities'
+import './XYGraph.css';
+import Alert from '../../Alert/Alert';
 
 const theme = ["#FF0000"];
 
-const Graph = ({data, type, yAccessor}) => {
+const XYGraph = ({data, type, yAccessor}) => {
 
     if (typeof(data) === "undefined" || data.length === 0) {
         return (
@@ -18,22 +16,22 @@ const Graph = ({data, type, yAccessor}) => {
         )
     }
 
-    const frameProps = {
-        lines: {
+    const frameProps = {   
+        lines: { 
             coordinates: [
-                    ...data
+                    ...data 
                 ]
             },
         size: [860, 400],
-        margin: {
-            left: 80,
-            bottom: 90,
-            right: 10,
-            top: 40
+        margin: { 
+            left: 80, 
+            bottom: 90, 
+            right: 10, 
+            top: 40 
         },
-        lineType: {
-            type: "line",
-            interpolator: curveCatmullRom
+        lineType: { 
+            type: "line", 
+            interpolator: curveCatmullRom 
         },
         xScaleType: scaleTime(),
         xAccessor: function(e) {
@@ -50,22 +48,22 @@ const Graph = ({data, type, yAccessor}) => {
             <text textAnchor="middle">Number of Colorado Covid-19 {type} by Day</text>
         ),
         axes: [
-            {
-                orient: "left",
-                label: "Number of Cases",
+            { 
+                orient: "left", 
+                label: "Number of Cases", 
                 tickFormat: function(e){
                     return e / 1e3 + "k";
-                }
+                } 
             },
-            {
-                orient: "bottom",
-                tickFormat: function(e) {
+            { 
+                orient: "bottom", 
+                tickFormat: function(e) {  
                     return e.getMonth() + 1 + "/" + e.getDate();
-                },
-                label: {
-                    name: "Date",
-                    locationDistance: 55
-                }
+                }, 
+                label: { 
+                    name: "Date", 
+                    locationDistance: 55 
+                } 
             }
         ],
         hoverAnnotation: true,
@@ -79,4 +77,4 @@ const Graph = ({data, type, yAccessor}) => {
     return <XYFrame {...frameProps} />
 }
 
-export default Graph;
+export default XYGraph;
