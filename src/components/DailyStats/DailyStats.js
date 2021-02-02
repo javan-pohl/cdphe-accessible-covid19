@@ -10,6 +10,25 @@ const DailyStats = ({data, type, yAccessor}) => {
 
   return (
     <React.Fragment>
+        <div className="toggle-display" role="button">
+            <Button
+            className="weekly"
+            onClick={() => setTableDisplay(false)}
+            color={tableDisplay ? "secondary" : "primary"}
+            >
+            Graph
+            </Button>
+            <Button
+            className="daily"
+            onClick={() => setTableDisplay(true)}
+            color={tableDisplay ? "primary" : "secondary"}
+            >
+            Table
+            </Button>
+        </div>
+        {
+            tableDisplay ? <Table data={data} /> : <Graph data={data} type={type} yAccessor={yAccessor} />
+        }
     </React.Fragment>
   );
 }
