@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import Graph from "./Graph/Graph";
-import Table from "./Table/Table";
+import XYGraph from "./XYGraph/XYGraph";
+import DailyTable from "./DailyTable/DailyTable";
 import { Button } from "tabler-react";
 
 
@@ -27,7 +27,7 @@ const DailyStats = ({data, type, yAccessor}) => {
             </Button>
         </div>
         {
-            tableDisplay ? <Table data={data} /> : <Graph data={data} type={type} yAccessor={yAccessor} />
+            tableDisplay ? <DailyTable data={data} /> : <XYGraph data={data} type={type} yAccessor={yAccessor} />
         }
     </React.Fragment>
   );
