@@ -2,6 +2,7 @@ import './Graph.css';
 
 import { formatComma, formatDate } from '../../utils/utilities'
 
+import Alert from '../Alert/Alert';
 import React from "react";
 import XYFrame from "semiotic/lib/XYFrame";
 import { curveCatmullRom } from "d3-shape"
@@ -10,6 +11,13 @@ import { scaleTime } from "d3-scale"
 const theme = ["#FF0000"];
 
 const Graph = ({data, type, yAccessor}) => {
+
+    if (typeof(data) === "undefined" || data.length === 0) {
+        return (
+            <Alert type={"danger"} text={"Oops, we can't fetch that data at the moment. Please check back later."} />
+        )
+    }
+
     const frameProps = {
         lines: {
             coordinates: [

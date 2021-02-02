@@ -1,5 +1,6 @@
 import "./StackedBarPlot.css";
 
+import Alert from "../Alert/Alert"
 import OrdinalFrame from "semiotic/lib/OrdinalFrame";
 import React from "react";
 
@@ -9,6 +10,17 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
     month: "short",
     day: "numeric",
   });
+
+  if (typeof data === "undefined" || data.length === 0) {
+    return (
+      <Alert
+        type={"danger"}
+        text={
+          "Oops, we can't fetch that data at the moment. Please check back later."
+        }
+      />
+    );
+  }
 
   const frameProps = {
     /* --- Data --- */

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import Alert from "../Alert/Alert";
 import { Button } from "tabler-react";
 import { Grid } from "tabler-react";
 import { StatsCard } from "./StatsCard";
@@ -23,39 +24,44 @@ export const Home = ({ data }) => {
     }
   };
 
-  return (
-    <div>
-      <div className="toggle-daily" role="button">
-        <Button
-          className="daily"
-          onClick={(e) => handleToggleDaily(true)}
-          color={isDaily ? "primary" : "secondary"}
-        >
-          Daily
-        </Button>
-        <Button
-          className="weekly"
-          onClick={(e) => handleToggleDaily(false)}
-          color={isDaily ? "secondary" : "primary"}
-        >
-          Weekly
-        </Button>
-      </div>
+  if (typeof data != "undefined" && data.length > 0) {
+    return (
+      <div>
+        <div className="toggle-daily" role="button">
+          <Button
+            className="daily"
+            onClick={(e) => handleToggleDaily(true)}
+            color={isDaily ? "primary" : "secondary"}
+          >
+            Daily
+          </Button>
+          <Button
+            className="weekly"
+            onClick={(e) => handleToggleDaily(false)}
+            color={isDaily ? "secondary" : "primary"}
+          >
+            Weekly
+          </Button>
+        </div>
 
-      {current && previous && (
-        <Grid.Row cards deck>
-          {Object.keys(current).map((key) => (
-            <GridContainer>
-              <StatsCard
-                movement={current[key] - previous[key]}
-                movementType={isDaily ? "daily" : "weekly"}
-                total={current[key]}
-                label={key}
-              />
-            </GridContainer>
-          ))}
-        </Grid.Row>
-      )}
-    </div>
-  );
+        {current && previous && (
+          <Grid.Row cards deck>
+            {Object.keys(current).map((key) => (
+              <GridContainer>
+                <StatsCard
+                  movement={current[key] - previous[key]}
+                  movementType={isDaily ? "daily" : "weekly"}
+                  total={current[key]}
+                  label={key}
+                />
+              </GridContainer>
+            ))}
+          </Grid.Row>
+        )}
+      </div>
+    );
+  }
+  return (
+    <Alert type={"danger"} text={"Oops, looks like we can't fetch the daily snapshot. Please check back later."}/>
+  )
 };

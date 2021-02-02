@@ -16,7 +16,11 @@ export async function getDailyStatistics() {
         .then((resJson) => {
             return cleanDailyStats(resJson.features);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            console.log(err);
+            return [];
+        }
+        );
 }
 
 export async function getTestingStatistics(testType) {
@@ -73,6 +77,9 @@ export async function getTestingStatistics(testType) {
         const queryString = `?where=1%3D1&outFields=${outFields}&outSR=4326&f=json`;
         return API_URLS.testPositivity + queryString;
     }
+
+
+        const queryString = `?where=1%3D1&outFields=Desc_,Metric,Value,Attr_Date&outSR=4326&f=json`;
 
     function cleanTestingStats({features}) {
         let allAttributes = features.map(x => x.attributes);
@@ -132,6 +139,10 @@ export async function getTestingStatistics(testType) {
         .then((cleanedData) => {
             return addComputedFields(cleanedData);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            console.log(err);
+            return [];
+
+        });
 }
 
