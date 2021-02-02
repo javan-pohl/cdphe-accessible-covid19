@@ -31,7 +31,7 @@ const App = () => {
       <Sidebar />
       <section className="display">
         <Route exact path="/">
-          <Home data={data.slice(0, 8)} />
+          {data && <Home data={data.slice(0, 8)} />}
         </Route>
         <Route exact path="/daily-cases">
           <Card title="Daily Colorado Covid-19 Cases">
