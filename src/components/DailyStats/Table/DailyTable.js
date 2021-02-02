@@ -1,10 +1,10 @@
 import './Table.css'
 import React from "react";
 
-const Table = ({data}) => {
+const DailyTable = ({data}) => {
   const generateRows = (data) => {
     return data.map(point => {
-      const {Date, Test_Encounters, Tested, Rate, Cases, Hosp, Deaths} = point;
+      const { Date, Test_Encounters, Tested, Rate, Cases, Hosp, Deaths } = point;
 
       return (
           <tr key={Date} >
@@ -41,4 +41,4 @@ const Table = ({data}) => {
   );
 }
 
-export default Table;
+export default DailyTable;
