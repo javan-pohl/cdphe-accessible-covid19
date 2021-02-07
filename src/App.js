@@ -9,7 +9,7 @@ import DailyStats from "./components/DailyStats/DailyStats";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
-import StackedBarPlot from "./components/StackedBarPlot/StackedBarPlot";
+import StackedBarPlot from "./components/Graphs/StackedBarPlot/StackedBarPlot";
 
 const App = () => {
   const [data, setData] = useState([]);
