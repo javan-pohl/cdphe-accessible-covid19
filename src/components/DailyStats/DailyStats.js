@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import XYGraph from "./XYGraph/XYGraph";
+import XYGraph from "../Graphs/XYGraph/XYGraph";
 import DailyTable from "./DailyTable/DailyTable";
 import { Button } from "tabler-react";
 
@@ -12,14 +12,14 @@ const DailyStats = ({data, type, yAccessor}) => {
     <React.Fragment>
         <div className="toggle-display" role="button">
             <Button
-            className="weekly"
+            className="toggle-button"
             onClick={() => setTableDisplay(false)}
             color={tableDisplay ? "secondary" : "primary"}
             >
             Graph
             </Button>
             <Button
-            className="daily"
+            className="toggle-button"
             onClick={() => setTableDisplay(true)}
             color={tableDisplay ? "primary" : "secondary"}
             >
@@ -27,7 +27,7 @@ const DailyStats = ({data, type, yAccessor}) => {
             </Button>
         </div>
         {
-            tableDisplay ? <DailyTable data={data} /> : <XYGraph data={data} type={type} yAccessor={yAccessor} />
+            tableDisplay ? <DailyTable data={data} yAccessor={yAccessor}/> : <XYGraph data={data} type={type} yAccessor={yAccessor} />
         }
     </React.Fragment>
   );
