@@ -25,24 +25,25 @@ export const Home = ({ data }) => {
     }
   };
 
-  return (
-    <div>
-      <div className="toggle-display" role="button">
-        <Button
-          className="toggle-button"
-          onClick={(e) => handleToggleDaily(true)}
-          color={isDaily ? "primary" : "secondary"}
-        >
-          Daily
-        </Button>
-        <Button
-          className="toggle-button"
-          onClick={(e) => handleToggleDaily(false)}
-          color={isDaily ? "secondary" : "primary"}
-        >
-          Weekly
-        </Button>
-      </div>
+  if (typeof data != "undefined" && data.length > 0) {
+    return (
+      <div>
+        <div className="toggle-display" role="button">
+          <Button
+            className="toggle-button"
+            onClick={(e) => handleToggleDaily(true)}
+            color={isDaily ? "primary" : "secondary"}
+          >
+            Daily
+          </Button>
+          <Button
+            className="toggle-button"
+            onClick={(e) => handleToggleDaily(false)}
+            color={isDaily ? "secondary" : "primary"}
+          >
+            Weekly
+          </Button>
+        </div>
 
         {current && previous && (
           <Grid.Row cards deck>
@@ -61,6 +62,7 @@ export const Home = ({ data }) => {
       </div>
     );
   }
+
   return (
     <Alert type={"danger"} text={"Oops, looks like we can't fetch the daily snapshot. Please check back later."}/>
   )
