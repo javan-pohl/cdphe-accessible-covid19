@@ -4,6 +4,7 @@ import Alert from "../Alert/Alert";
 import { Button } from "tabler-react";
 import { Grid } from "tabler-react";
 import { StatsCard } from "./StatsCard";
+import './Home.css'
 
 const GridContainer = (props) => (
   <Grid.Col sm={6} md={4} lg={3}>
@@ -24,25 +25,24 @@ export const Home = ({ data }) => {
     }
   };
 
-  if (typeof data != "undefined" && data.length > 0) {
-    return (
-      <div>
-        <div className="toggle-daily" role="button">
-          <Button
-            className="daily"
-            onClick={(e) => handleToggleDaily(true)}
-            color={isDaily ? "primary" : "secondary"}
-          >
-            Daily
-          </Button>
-          <Button
-            className="weekly"
-            onClick={(e) => handleToggleDaily(false)}
-            color={isDaily ? "secondary" : "primary"}
-          >
-            Weekly
-          </Button>
-        </div>
+  return (
+    <div>
+      <div className="toggle-display" role="button">
+        <Button
+          className="toggle-button"
+          onClick={(e) => handleToggleDaily(true)}
+          color={isDaily ? "primary" : "secondary"}
+        >
+          Daily
+        </Button>
+        <Button
+          className="toggle-button"
+          onClick={(e) => handleToggleDaily(false)}
+          color={isDaily ? "secondary" : "primary"}
+        >
+          Weekly
+        </Button>
+      </div>
 
         {current && previous && (
           <Grid.Row cards deck>
