@@ -1,6 +1,6 @@
 import "./StackedBarPlot.css";
 
-import Alert from "../Alert/Alert"
+import Alert from "../../Alert/Alert"
 import OrdinalFrame from "semiotic/lib/OrdinalFrame";
 import React from "react";
 

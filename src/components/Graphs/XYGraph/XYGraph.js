@@ -1,10 +1,3 @@
-<<<<<<< HEAD:src/components/DailyStats/Graph/XYGraph.js
-=======
-import './XYGraph.css';
-
-import { formatComma, formatDate } from '../../../utils/utilities'
-
->>>>>>> Shift graphs into grouped subdirectory:src/components/Graphs/XYGraph/XYGraph.js
 import React from "react";
 import XYFrame from "semiotic/lib/XYFrame";
 import { curveCatmullRom } from "d3-shape"
@@ -16,8 +9,6 @@ import Alert from '../../Alert/Alert';
 const theme = ["#FF0000"];
 
 const XYGraph = ({data, type, yAccessor}) => {
-<<<<<<< HEAD:src/components/DailyStats/Graph/XYGraph.js
-
     if (typeof(data) === "undefined" || data.length === 0) {
         return (
             <Alert type={"danger"} text={"Oops, we can't fetch that data at the moment. Please check back later."} />
@@ -26,10 +17,6 @@ const XYGraph = ({data, type, yAccessor}) => {
 
     const frameProps = {   
         lines: { 
-=======
-    const frameProps = {
-        lines: {
->>>>>>> Shift graphs into grouped subdirectory:src/components/Graphs/XYGraph/XYGraph.js
             coordinates: [
                     ...data 
                 ]
