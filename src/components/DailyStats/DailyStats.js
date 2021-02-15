@@ -5,7 +5,7 @@ import DailyTable from "./DailyTable/DailyTable";
 import { Button } from "tabler-react";
 
 
-const DailyStats = ({data, type, yAccessor}) => {
+const DailyStats = ({data, type, accessors, labels, title}) => {
   const [tableDisplay, setTableDisplay] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ const DailyStats = ({data, type, yAccessor}) => {
             </Button>
         </div>
         {
-            tableDisplay ? <DailyTable data={data} yAccessor={yAccessor}/> : <XYGraph data={data} type={type} yAccessor={yAccessor} />
+            tableDisplay ? <DailyTable data={data} accessors={[accessors]} title={title} labels={[labels]}/> : <XYGraph data={data} type={type} yAccessor={accessors} />
         }
     </React.Fragment>
   );
