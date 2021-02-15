@@ -5,11 +5,9 @@ import React, { useEffect, useState } from "react";
 import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
 
 import Card from "./components/Card/Card";
-import DailyStats from "./components/DailyStats/DailyStats";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
-import StackedBarPlot from "./components/Graphs/StackedBarPlot/StackedBarPlot";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -34,63 +32,66 @@ const App = () => {
           {data && <Home data={data.slice(0, 8)} />}
         </Route>
         <Route exact path="/daily-cases">
-          <Card title="Daily Colorado Covid-19 Cases">
-            <DailyStats 
-              data={data} 
-              type={"Cases"} 
-              accessors={"Cases"} 
-              title={"Daily Colorado Covid-19 Hospitalized"} 
-              labels={"Total Cases"} 
-            />
-          </Card>
+          <Card 
+            data={data} 
+            topic={"Cases"} 
+            graphType={"XY"}
+            accessors={"Cases"} 
+            dateCap={true}
+            title="Daily Colorado Covid-19 Cases"
+            labels={"Total Cases"} 
+          />
         </Route>
         <Route exact path="/daily-hosp">
-          <Card title="Daily Colorado Covid-19 Hospitalized">
-            <DailyStats 
-              data={data} 
-              type={"Hospitalized"} 
-              accessors={"Hosp"} 
-              labels={"Hospitalizations From C19"}
-            />
-          </Card>
+          <Card 
+            data={data} 
+            topic={"Hospitalized"} 
+            graphType={"XY"}
+            accessors={"Hosp"} 
+            dateCap={true}
+            title={"Daily Colorado Covid-19 Hospitalized"} 
+            labels={"Hospitalizations From C19"}
+          />
         </Route>
         <Route exact path="/daily-deaths">
-          <Card title="Daily Colorado Covid-19 Deaths">
-            <DailyStats 
-              data={data} 
-              type={"Deaths"} 
-              accessors={"Deaths"} 
-              labels={"Deaths Among Cases"}
-            />
-          </Card>
+          <Card 
+            data={data} 
+            topic={"Deaths"} 
+            graphType={"XY"}
+            accessors={"Deaths"} 
+            dateCap={true}
+            title="Daily Colorado Covid-19 Deaths"
+            labels={"Deaths Among Cases"}
+          />
         </Route>
         <Route exact path="/daily-tested">
-          <Card title="Daily Colorado Covid-19 Tested">
-            <DailyStats 
-              data={data} 
-              type={"Tested"} 
-              accessors={"Tested"} 
-              labels={"Tested For The First Time"}
-            />
-          </Card>
-          <Card title="Daily PCR Tests Administered">
-            <StackedBarPlot
-              data={pcrTestData}
-              fillColors={["#0000FF", "#FF6945"]}
-              rAccessor={["testedAtCommercialLabs", "testedAtStateLabs"]}
-              title={"Daily PCR Tests Administered"}
-              rLabels={["Commercial Labs", "State Labs"]}
-            />
-          </Card>
-          <Card title="Daily Antibody Tests Administered">
-            <StackedBarPlot
-              data={antibodyTestData}
-              fillColors={["#FF6945", "#0000FF"]}
-              rAccessor={["positiveTests", "negativeTests"]}
-              title={"Daily Antibody Tests Administered"}
-              rLabels={["Positive", "Negative"]}
-            />
-          </Card>
+          <Card 
+            data={data} 
+            topic={"Tested"} 
+            graphType={"XY"}
+            accessors={"Tested"} 
+            dateCap={true}
+            title="Daily Colorado Covid-19 Tested"
+            labels={"Tested For The First Time"}
+          />
+          <Card
+            data={pcrTestData}
+            fillColors={["#0000FF", "#FF6945"]}
+            graphType={"StackedBar"}
+            accessors={["testedAtCommercialLabs", "testedAtStateLabs"]}
+            title={"Daily PCR Tests Administered"}
+            dateCap={false}
+            labels={["Commercial Labs", "State Labs"]}
+          />
+          <Card
+            data={antibodyTestData}
+            fillColors={["#FF6945", "#0000FF"]}
+            graphType={"StackedBar"}
+            accessors={["positiveTests", "negativeTests"]}
+            title={"Daily Antibody Tests Administered"}
+            dateCap={false}
+            labels={["Positive", "Negative"]}
+          />
         </Route>
       </section>
     </section>
