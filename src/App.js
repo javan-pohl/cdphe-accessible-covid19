@@ -35,22 +35,43 @@ const App = () => {
         </Route>
         <Route exact path="/daily-cases">
           <Card title="Daily Colorado Covid-19 Cases">
-            <DailyStats data={data} type={"Cases"} yAccessor={"Cases"} />
+            <DailyStats 
+              data={data} 
+              type={"Cases"} 
+              accessors={"Cases"} 
+              title={"Daily Colorado Covid-19 Hospitalized"} 
+              labels={"Total Cases"} 
+            />
           </Card>
         </Route>
         <Route exact path="/daily-hosp">
           <Card title="Daily Colorado Covid-19 Hospitalized">
-            <DailyStats data={data} type={"Hospitalized"} yAccessor={"Hosp"} />
+            <DailyStats 
+              data={data} 
+              type={"Hospitalized"} 
+              accessors={"Hosp"} 
+              labels={"Hospitalizations From C19"}
+            />
           </Card>
         </Route>
         <Route exact path="/daily-deaths">
           <Card title="Daily Colorado Covid-19 Deaths">
-            <DailyStats data={data} type={"Deaths"} yAccessor={"Deaths"} />
+            <DailyStats 
+              data={data} 
+              type={"Deaths"} 
+              accessors={"Deaths"} 
+              labels={"Deaths Among Cases"}
+            />
           </Card>
         </Route>
         <Route exact path="/daily-tested">
           <Card title="Daily Colorado Covid-19 Tested">
-            <DailyStats data={data} type={"Tested"} yAccessor={"Tested"} />
+            <DailyStats 
+              data={data} 
+              type={"Tested"} 
+              accessors={"Tested"} 
+              labels={"Tested For The First Time"}
+            />
           </Card>
           <Card title="Daily PCR Tests Administered">
             <StackedBarPlot
