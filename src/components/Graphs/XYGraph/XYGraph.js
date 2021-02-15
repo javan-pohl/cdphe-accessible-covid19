@@ -8,7 +8,7 @@ import Alert from '../../Alert/Alert';
 
 const theme = ["#FF0000"];
 
-const XYGraph = ({data, type, yAccessor}) => {
+const XYGraph = ({data, topic, yAccessor}) => {
     if (typeof(data) === "undefined" || data.length === 0) {
         return (
             <Alert type={"danger"} text={"Oops, we can't fetch that data at the moment. Please check back later."} />
@@ -44,7 +44,7 @@ const XYGraph = ({data, type, yAccessor}) => {
             fill: "none"
         }),
         title: (
-            <text textAnchor="middle">Number of Colorado Covid-19 {type} by Day</text>
+            <text textAnchor="middle">Number of Colorado Covid-19 {topic} by Day</text>
         ),
         axes: [
             { 
@@ -69,7 +69,7 @@ const XYGraph = ({data, type, yAccessor}) => {
         tooltipContent: d => (
             <div className="tooltip-content">
                 <p>Date: {formatDate(d.Date)}</p>
-                <p>Total {type} Count: {formatComma(d.Cases)}</p>
+                <p>Total {topic} Count: {formatComma(d.Cases)}</p>
             </div>
         )
     }
