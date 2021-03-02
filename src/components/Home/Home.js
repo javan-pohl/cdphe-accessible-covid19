@@ -41,7 +41,7 @@ export const Home = ({ data }) => {
           Weekly
         </Button>
       </div>
-
+      
       {current && previous && (
         <Grid.Row cards deck>
           {Object.keys(current).map((key) => (

@@ -10,6 +10,7 @@ import { scaleTime } from "d3-scale"
 const theme = ["#FF0000"];
 
 const Graph = ({data, type, yAccessor}) => {
+    console.log(data);
     const frameProps = {
         lines: {
             coordinates: [
@@ -64,7 +65,7 @@ const Graph = ({data, type, yAccessor}) => {
         tooltipContent: d => (
             <div className="tooltip-content">
                 <p>Date: {formatDate(d.Date)}</p>
-                <p>Total {type} Count: {formatComma(d.Cases)}</p>
+                {/* <p>Total {type} Count: {formatComma(d.Cases)}</p> */}
             </div>
         )
     }
