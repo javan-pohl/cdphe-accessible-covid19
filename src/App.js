@@ -2,7 +2,11 @@ import "./App.css";
 import "tabler-react/dist/Tabler.css";
 
 import React, { useEffect, useState } from "react";
-import { getDailyStatistics, getTestingStatistics } from "./utils/apiClient";
+import {
+  getDailyStatistics,
+  getTestingStatistics,
+  getVaccineStatistics,
+} from "./utils/apiClient";
 
 import Card from "./components/Card/Card";
 import { Home } from "./components/Home/Home";
@@ -13,6 +17,7 @@ const App = () => {
   const [data, setData] = useState([]);
   const [pcrTestData, setPcrTestData] = useState([]);
   const [antibodyTestData, setAntibodyTestData] = useState([]);
+  const [vaccineData, setVaccineData] = useState([]);
 
   useEffect(() => {
     getDailyStatistics().then((dailyStatsData) => setData(dailyStatsData));
@@ -22,13 +27,16 @@ const App = () => {
     getTestingStatistics("antibody").then((data) => {
       setAntibodyTestData(data);
     });
+    getVaccineStatistics().then((data) => {
+      setVaccineData(data);
+    });
   }, []);
     
   return (
-    <section className="app">
+    <section className='app'>
       <Sidebar />
-      <section className="display">
-        <Route exact path="/">
+      <section className='display'>
+        <Route exact path='/'>
           {data && <Home data={data.slice(0, 8)} />}
         </Route>
         <Route exact path="/daily-cases">
@@ -92,6 +100,18 @@ const App = () => {
             dateCap={false}
             labels={["Positive", "Negative"]}
           />
+        </Route>
+        <Route exact path='/vaccine'>
+          <Card title='VaccineTotal'>
+            {console.log(vaccineData)}
+            {vaccineData.cumulativeDoesAdministered && (
+              <Graph
+                data={vaccineData.cumulativeDoesAdministered}
+                type={"Vaccines"}
+                yAccessor={"value"}
+              />
+            )}
+          </Card>
         </Route>
       </section>
     </section>

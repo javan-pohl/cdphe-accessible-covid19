@@ -154,3 +154,59 @@ export async function getTestingStatistics(testType) {
       return [];
     });
 }
+
+export async function getVaccineStatistics() {
+  return await fetch(API_URLS.vaccineStatistics)
+    .then((res) => res.json())
+    .then((resJson) => {
+      const { features } = resJson;
+
+      const cumulativeDoesAdministered = features.reduce(
+        (array, { attributes }) => {
+          if (attributes.metric === "Cumulative Doses Administered") {
+            array.push({ ...attributes, Date: attributes.publish_date });
+            return array;
+          }
+          return array;
+        },
+        []
+      );
+
+      const cumulativeOneDose = features.reduce((array, { attributes }) => {
+        if (attributes.metric === "People Immunized with One Dose") {
+          array.push({ ...attributes, Date: attributes.publish_date });
+          return array;
+        }
+        return array;
+      }, []);
+
+      const cumulativeTwoDoses = features.reduce((array, { attributes }) => {
+        if (attributes.metric === "People Immunized with Two Doses") {
+          array.push({ ...attributes, Date: attributes.publish_date });
+          return array;
+        }
+        return array;
+      }, []);
+
+      const cumulativeVaccineProvider = features.reduce(
+        (array, { attributes }) => {
+          if (attributes.metric === "Total Vaccine Providers") {
+            array.push({ ...attributes, Date: attributes.publish_date });
+            return array;
+          }
+          return array;
+        },
+        []
+      );
+
+      const vaccineData = {
+        cumulativeDoesAdministered,
+        cumulativeOneDose,
+        cumulativeTwoDoses,
+        cumulativeVaccineProvider,
+      };
+
+      return vaccineData;
+    })
+    .catch((err) => console.log(err));
+}
