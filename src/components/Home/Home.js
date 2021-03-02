@@ -4,6 +4,7 @@ import Alert from "../Alert/Alert";
 import { Button } from "tabler-react";
 import { Grid } from "tabler-react";
 import { StatsCard } from "./StatsCard";
+import './Home.css'
 
 const GridContainer = (props) => (
   <Grid.Col sm={6} md={4} lg={3}>
@@ -27,16 +28,16 @@ export const Home = ({ data }) => {
   if (typeof data != "undefined" && data.length > 0) {
     return (
       <div>
-        <div className="toggle-daily" role="button">
+        <div className="toggle-display" role="button">
           <Button
-            className="daily"
+            className="toggle-button"
             onClick={(e) => handleToggleDaily(true)}
             color={isDaily ? "primary" : "secondary"}
           >
             Daily
           </Button>
           <Button
-            className="weekly"
+            className="toggle-button"
             onClick={(e) => handleToggleDaily(false)}
             color={isDaily ? "secondary" : "primary"}
           >
@@ -61,6 +62,7 @@ export const Home = ({ data }) => {
       </div>
     );
   }
+
   return (
     <Alert type={"danger"} text={"Oops, looks like we can't fetch the daily snapshot. Please check back later."}/>
   )

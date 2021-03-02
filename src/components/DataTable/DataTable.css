@@ -1,0 +1,19 @@
+.poc-table-wrapper {
+    height: 400px;
+    width: 100%;
+    overflow: scroll;
+}
+
+.poc-table {
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+}
+
+th,
+td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #BCBCBC;
+    word-wrap: break-word;
+}

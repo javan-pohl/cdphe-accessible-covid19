@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "tabler-react";
-import './LatestSnapshot.css'
+import './Home.css'
 
 const LatestSnapshot = (props) => {
   const { data } = props; 
