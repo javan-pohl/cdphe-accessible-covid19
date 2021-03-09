@@ -1,5 +1,5 @@
 import { formatDate, sortObjectsByDate } from "./utilities";
-
+import _ from 'lodash';
 import { API_URLS } from "./constants";
 
 export async function getDailyStatistics() {
@@ -160,53 +160,14 @@ export async function getVaccineStatistics() {
     .then((res) => res.json())
     .then((resJson) => {
       const { features } = resJson;
-
-      const cumulativeDoesAdministered = features.reduce(
-        (array, { attributes }) => {
-          if (attributes.metric === "Cumulative Doses Administered") {
-            array.push({ ...attributes, Date: attributes.publish_date });
-            return array;
-          }
-          return array;
-        },
-        []
-      );
-
-      const cumulativeOneDose = features.reduce((array, { attributes }) => {
-        if (attributes.metric === "People Immunized with One Dose") {
-          array.push({ ...attributes, Date: attributes.publish_date });
-          return array;
-        }
-        return array;
-      }, []);
-
-      const cumulativeTwoDoses = features.reduce((array, { attributes }) => {
-        if (attributes.metric === "People Immunized with Two Doses") {
-          array.push({ ...attributes, Date: attributes.publish_date });
-          return array;
-        }
-        return array;
-      }, []);
-
-      const cumulativeVaccineProvider = features.reduce(
-        (array, { attributes }) => {
-          if (attributes.metric === "Total Vaccine Providers") {
-            array.push({ ...attributes, Date: attributes.publish_date });
-            return array;
-          }
-          return array;
-        },
-        []
-      );
-
-      const vaccineData = {
-        cumulativeDoesAdministered,
-        cumulativeOneDose,
-        cumulativeTwoDoses,
-        cumulativeVaccineProvider,
-      };
-
-      return vaccineData;
+      const rawVaccineData = features.map(point => point.attributes)
+      const dataBySection = _.groupBy(rawVaccineData, 'section');
+      const dataByCategoryAndMetric = _.mapValues(dataBySection, (section) => {
+        const groupedByCategory = _.groupBy(section, 'category');
+        const groupedByMetric = _.mapValues(groupedByCategory, (category) => _.groupBy(category, 'metric'));
+        return groupedByMetric
+      })
+      return dataByCategoryAndMetric;
     })
     .catch((err) => console.log(err));
 }
