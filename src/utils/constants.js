@@ -5,6 +5,6 @@
 const API_URLS = {
     dailyStatistics: 'https://services3.arcgis.com/66aUo8zsujfVXRIT/arcgis/rest/services/colorado_covid19_daily_state_statistics_cumulative/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json',
     testPositivity: 'https://services3.arcgis.com/66aUo8zsujfVXRIT/arcgis/rest/services/colorado_covid19_laboratory_positivity_data/FeatureServer/0/query',
-    vaccineStatistics: 'https://services3.arcgis.com/66aUo8zsujfVXRIT/arcgis/rest/services/CDPHE_COVID19_Vaccine_Daily_Summary_Statistics/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json'
+    vaccineStatistics: 'https://services3.arcgis.com/66aUo8zsujfVXRIT/arcgis/rest/services/colorado_covid19_vaccine_statistics_cumulative/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json'
 }
 exports.API_URLS = API_URLS;
