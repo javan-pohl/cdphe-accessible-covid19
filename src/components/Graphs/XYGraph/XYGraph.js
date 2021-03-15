@@ -8,12 +8,13 @@ import Alert from '../../Alert/Alert';
 
 const theme = ["#FF0000"];
 
-const XYGraph = ({data, topic, yAccessor}) => {
+const XYGraph = ({data, topic, dateCap, yAccessor}) => {
     if (typeof(data) === "undefined" || data.length === 0) {
         return (
             <Alert type={"danger"} text={"Oops, we can't fetch that data at the moment. Please check back later."} />
         )
     }
+    const dateKey = dateCap ? 'Date' : 'date';
 
     const frameProps = {   
         lines: { 
@@ -34,7 +35,7 @@ const XYGraph = ({data, topic, yAccessor}) => {
         },
         xScaleType: scaleTime(),
         xAccessor: function(e) {
-            return new Date(e.Date);
+            return new Date(e[dateKey]);
         },
         yAccessor: yAccessor,
         yExtent: [0],
@@ -68,8 +69,8 @@ const XYGraph = ({data, topic, yAccessor}) => {
         hoverAnnotation: true,
         tooltipContent: d => (
             <div className="tooltip-content">
-                <p>Date: {formatDate(d.Date)}</p>
-                <p>Total {topic} Count: {formatComma(d.Cases)}</p>
+                <p>Date: {formatDate(d[dateKey])}</p>
+                <p>Total {topic} Count: {formatComma(d[yAccessor])}</p>
             </div>
         )
     }
