@@ -162,15 +162,22 @@ export async function getVaccineStatistics() {
       const { features } = resJson;
       const rawVaccineData = features.map(point => point.attributes)
       const dataBySection = _.groupBy(rawVaccineData, 'section');
-      const dataByCategoryAndMetric = _.mapValues(dataBySection, (section) => {
+      const dataAllGrouping = _.mapValues(dataBySection, (section) => {
         const groupedByCategory = _.groupBy(section, 'category');
         const groupedByMetricAndType = _.mapValues(groupedByCategory, (category) => {
           const groupedByMetric = _.groupBy(category, 'metric');
-          return _.mapValues(groupedByMetric, (type) => _.groupBy(type, 'type'));
+          return _.mapValues(groupedByMetric, (type) => {
+            const groupedByType = _.groupBy(type, 'type');
+            // Vaccine data has duplicates for each date, take first
+            // return _.mapValues(groupedByType, (eachType) => {
+            //   return _.uniq(eachType, (e) => e.date)
+            // });
+            return groupedByType;
+          });
         })
         return groupedByMetricAndType
       })
-      return dataByCategoryAndMetric;
+      return dataAllGrouping;
     })
     .catch((err) => console.log(err));
 }
