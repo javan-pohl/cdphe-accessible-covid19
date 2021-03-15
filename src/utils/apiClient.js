@@ -164,8 +164,11 @@ export async function getVaccineStatistics() {
       const dataBySection = _.groupBy(rawVaccineData, 'section');
       const dataByCategoryAndMetric = _.mapValues(dataBySection, (section) => {
         const groupedByCategory = _.groupBy(section, 'category');
-        const groupedByMetric = _.mapValues(groupedByCategory, (category) => _.groupBy(category, 'metric'));
-        return groupedByMetric
+        const groupedByMetricAndType = _.mapValues(groupedByCategory, (category) => {
+          const groupedByMetric = _.groupBy(category, 'metric');
+          return _.mapValues(groupedByMetric, (type) => _.groupBy(type, 'type'));
+        })
+        return groupedByMetricAndType
       })
       return dataByCategoryAndMetric;
     })
