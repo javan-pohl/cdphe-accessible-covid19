@@ -14,13 +14,13 @@ import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 
 const App = () => {
-  const [data, setData] = useState([]);
+  const [dailyData, setDailyData] = useState([]);
   const [pcrTestData, setPcrTestData] = useState([]);
   const [antibodyTestData, setAntibodyTestData] = useState([]);
   const [vaccineData, setVaccineData] = useState([]);
 
   useEffect(() => {
-    getDailyStatistics().then((dailyStatsData) => setData(dailyStatsData));
+    getDailyStatistics().then((dailyStatsData) => setDailyData(dailyStatsData));
     getTestingStatistics("pcr").then((data) => {
       setPcrTestData(data);
     });
@@ -28,20 +28,42 @@ const App = () => {
       setAntibodyTestData(data);
     });
     getVaccineStatistics().then((data) => {
-      setVaccineData(data);
+      const allVaccine = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["All COVID Vaccines"];
+      const johnson = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Janssen"];
+      const pfizer = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Pfizer"];
+      const moderna = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Moderna"];
+      const unspecified = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Unspecified COVID Vaccine"];
+      setVaccineData(
+        {
+          all: allVaccine,
+          johnson,
+          pfizer,
+          moderna,
+          unspecified
+        }
+      );
+      console.log('vaccineData', data)
     });
-  }, []);
+  }, {
+    all: [], 
+    johnson: [],
+    pfizer: [],
+    moderna: [],
+    unspecified: []
+  });
+
+
     
   return (
     <section className='app'>
       <Sidebar />
       <section className='display'>
         <Route exact path='/'>
-          {data && <Home data={data.slice(0, 8)} />}
+          {dailyData && <Home data={dailyData.slice(0, 8)} />}
         </Route>
         <Route exact path="/daily-cases">
           <Card 
-            data={data} 
+            data={dailyData} 
             topic={"Cases"} 
             graphType={"XY"}
             accessors={"Cases"} 
@@ -52,7 +74,7 @@ const App = () => {
         </Route>
         <Route exact path="/daily-hosp">
           <Card 
-            data={data} 
+            data={dailyData} 
             topic={"Hospitalized"} 
             graphType={"XY"}
             accessors={"Hosp"} 
@@ -63,7 +85,7 @@ const App = () => {
         </Route>
         <Route exact path="/daily-deaths">
           <Card 
-            data={data} 
+            data={dailyData} 
             topic={"Deaths"} 
             graphType={"XY"}
             accessors={"Deaths"} 
@@ -74,7 +96,7 @@ const App = () => {
         </Route>
         <Route exact path="/daily-tested">
           <Card 
-            data={data} 
+            data={dailyData} 
             topic={"Tested"} 
             graphType={"XY"}
             accessors={"Tested"} 
@@ -101,17 +123,60 @@ const App = () => {
             labels={["Positive", "Negative"]}
           />
         </Route>
-        <Route exact path='/vaccine'>
-          <Card title='VaccineTotal'>
-            {console.log(vaccineData)}
-            {vaccineData.cumulativeDoesAdministered && (
-              <Graph
-                data={vaccineData.cumulativeDoesAdministered}
-                type={"Vaccines"}
-                yAccessor={"value"}
-              />
-            )}
-          </Card>
+        <Route exact path='/vaccine-all'>
+          <Card 
+            data={vaccineData.all} 
+            topic={"All Vaccine Administration"} 
+            graphType={"XY"}
+            accessors={"value"} 
+            dateCap={false}
+            title="Daily Colorado Vaccinations - All"
+            labels={"All COVID Vaccinations"}
+          />
+        </Route>
+        <Route exact path='/vaccine-jnj'>
+          <Card 
+            data={vaccineData.johnson} 
+            topic={"Johnson & Johnson Vaccine Administration"} 
+            graphType={"XY"}
+            accessors={"value"} 
+            dateCap={false}
+            title="Daily Colorado Vaccinations - Johnson & Johnson"
+            labels={"Johnson & Johnson COVID Vaccinations"}
+          />
+        </Route>
+        <Route exact path='/vaccine-pfizer'>
+          <Card 
+            data={vaccineData.pfizer} 
+            topic={"Pfizer Vaccine Administration"} 
+            graphType={"XY"}
+            accessors={"value"} 
+            dateCap={false}
+            title="Daily Colorado Vaccinations - Pfizer"
+            labels={"Pfizer COVID Vaccinations"}
+          />
+        </Route>
+        <Route exact path='/vaccine-moderna'>
+          <Card 
+            data={vaccineData.moderna} 
+            topic={"Moderna Vaccine Administration"} 
+            graphType={"XY"}
+            accessors={"value"} 
+            dateCap={false}
+            title="Daily Colorado Vaccinations - Moderna"
+            labels={"Moderna COVID Vaccinations"}
+          />
+        </Route>
+        <Route exact path='/vaccine-unspecified'>
+          <Card 
+            data={vaccineData.unspecified} 
+            topic={"Unspecified Vaccine Administration"} 
+            graphType={"XY"}
+            accessors={"value"} 
+            dateCap={false}
+            title="Daily Colorado Vaccinations - Unspecified"
+            labels={"Unspecified COVID Vaccinations"}
+          />
         </Route>
       </section>
     </section>
