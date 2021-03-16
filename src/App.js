@@ -178,18 +178,6 @@ const App = () => {
             labels={"Unspecified COVID Vaccinations"}
           />
         </Route>
-        <Route exact path='/vaccine'>
-          <Card title='VaccineTotal'>
-            {console.log(vaccineData)}
-            {vaccineData.cumulativeDoesAdministered && (
-              <Graph
-                data={vaccineData.cumulativeDoesAdministered}
-                type={"Vaccines"}
-                yAccessor={"value"}
-              />
-            )}
-          </Card>
-        </Route>
       </section>
     </section>
   );
