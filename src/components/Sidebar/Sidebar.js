@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Sidebar = () => {
   return (
     <nav className="sidebar" role="menu" aria-label="Denver Covid-19 Visualization Options">
-        <h1 className="title">Denver Covid-19 Dashboard</h1>
+        <h1 className="title">Colorado Covid-19 Dashboard</h1>
         <Link to="/" role="none">
           <h4 className="option" role="menuitem">Daily Snapshot</h4>
         </Link>
