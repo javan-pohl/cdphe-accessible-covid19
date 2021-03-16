@@ -17,7 +17,13 @@ const App = () => {
   const [dailyData, setDailyData] = useState([]);
   const [pcrTestData, setPcrTestData] = useState([]);
   const [antibodyTestData, setAntibodyTestData] = useState([]);
-  const [vaccineData, setVaccineData] = useState([]);
+  const [vaccineData, setVaccineData] = useState({
+    all: [], 
+    johnson: [],
+    pfizer: [],
+    moderna: [],
+    unspecified: []
+  });
 
   useEffect(() => {
     getDailyStatistics().then((dailyStatsData) => setDailyData(dailyStatsData));
@@ -44,13 +50,7 @@ const App = () => {
       );
       console.log('vaccineData', data)
     });
-  }, {
-    all: [], 
-    johnson: [],
-    pfizer: [],
-    moderna: [],
-    unspecified: []
-  });
+  }, []);
 
 
     
