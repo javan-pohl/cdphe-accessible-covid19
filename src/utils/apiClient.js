@@ -166,13 +166,20 @@ export async function getVaccineStatistics() {
         const groupedByCategory = _.groupBy(section, 'category');
         const groupedByMetricAndType = _.mapValues(groupedByCategory, (category) => {
           const groupedByMetric = _.groupBy(category, 'metric');
-          return _.mapValues(groupedByMetric, (type) => {
+          return _.mapValues(groupedByMetric, (type, metricKey) => {
             const groupedByType = _.groupBy(type, 'type');
-            // Vaccine data has duplicates for each date, take first
-            // return _.mapValues(groupedByType, (eachType) => {
-            //   return _.uniq(eachType, (e) => e.date)
-            // });
-            return groupedByType;
+            return _.mapValues(groupedByType, (eachType, eachKey) => {
+              console.log('mapKey', metricKey)
+              // Vaccine data has duplicates for each date, take only the first date
+              // data is also not sorted so is sorted subsequently
+              // this normalization method does not work for other vaccine data, and so is only applied to the Cumulative Daily stats which are currently being used.
+              if (metricKey === 'Cumulative Daily') {
+                const uniqueVaxValues = _.uniqBy(eachType, 'date');
+                return _.sortBy(uniqueVaxValues, (e) => new Date(e.date));
+              } else {
+                return eachType
+              }
+            });
           });
         })
         return groupedByMetricAndType
