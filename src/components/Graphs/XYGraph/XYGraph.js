@@ -1,5 +1,5 @@
 import React from "react";
-import XYFrame from "semiotic/lib/XYFrame";
+import ResponsiveXYFrame from "semiotic/lib/ResponsiveXYFrame";
 import { curveCatmullRom } from "d3-shape"
 import { scaleTime } from "d3-scale"
 import { formatComma, formatDate } from '../../../utils/utilities'
@@ -23,6 +23,7 @@ const XYGraph = ({data, topic, dateCap, yAccessor}) => {
                 ]
             },
         size: [860, 400],
+        responsiveWidth: true,
         margin: { 
             left: 80, 
             bottom: 90, 
@@ -74,7 +75,7 @@ const XYGraph = ({data, topic, dateCap, yAccessor}) => {
             </div>
         )
     }
-    return <XYFrame {...frameProps} />
+    return <ResponsiveXYFrame {...frameProps} />
 }
 
 export default XYGraph;
