@@ -12,6 +12,7 @@ import Card from "./components/Card/Card";
 import { Home } from "./components/Home/Home";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
+import SidebarMobile from "./components/Sidebar/SidebarMobile";
 
 const App = () => {
   const [dailyData, setDailyData] = useState([]);
@@ -52,11 +53,10 @@ const App = () => {
     });
   }, []);
 
-
-    
   return (
     <section className='app'>
       <Sidebar />
+      <SidebarMobile />
       <section className='display'>
         <Route exact path='/'>
           {dailyData && <Home data={dailyData.slice(0, 8)} />}

@@ -1,11 +1,10 @@
 import React from "react";
 import './Sidebar.css'
 import { Link } from "react-router-dom";
-import { slide as Menu } from 'react-burger-menu'
 
 const Sidebar = () => {
   return (
-    <Menu className="sidebar" role="menu" aria-label="Denver Covid-19 Visualization Options">
+    <nav className="sidebar" role="menu" aria-label="Denver Covid-19 Visualization Options">
         <h1 className="title">Colorado Covid-19 Dashboard</h1>
         <Link to="/" role="none">
           <h4 className="option" role="menuitem">Daily Snapshot</h4>
@@ -43,7 +42,7 @@ const Sidebar = () => {
             <li className="sub-option" role="menuitem" aria-label="Vaccine Summary Unspecified">Unspecified Vaccines</li>
           </Link>
         </ul>
-    </Menu>
+    </nav>
   );
 };
 
