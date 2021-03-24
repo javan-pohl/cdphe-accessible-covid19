@@ -49,7 +49,6 @@ const App = () => {
           unspecified
         }
       );
-      console.log('vaccineData', data)
     });
   }, []);
 

@@ -169,7 +169,6 @@ export async function getVaccineStatistics() {
           return _.mapValues(groupedByMetric, (type, metricKey) => {
             const groupedByType = _.groupBy(type, 'type');
             return _.mapValues(groupedByType, (eachType, eachKey) => {
-              console.log('mapKey', metricKey)
               // Vaccine data has duplicates for each date, take only the first date
               // data is also not sorted so is sorted subsequently
               // this normalization method does not work for other vaccine data, and so is only applied to the Cumulative Daily stats which are currently being used.
