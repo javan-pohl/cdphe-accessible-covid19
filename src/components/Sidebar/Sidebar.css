@@ -1,3 +1,13 @@
+.link,
+.sub-option {
+    color: #00539d;
+}
+
+.link:hover,
+.sub-option:hover {
+    color: #bb1122;
+}
+
 .sidebar {
     height: 100%;
     width: 20%;
@@ -17,10 +27,6 @@
 .sub-list {
     list-style-type:none;
     border-left: lightgrey 1px solid;
-}
-
-.sub-option:hover {
-    color: lightslategrey;
 }
 
 /* Hamburger Menu Style Predefined Inclusion */
@@ -67,7 +73,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* General sidebar styles */
 .bm-menu {
-    background: #373a47;
+    background: #f5f7fb;
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
 }
@@ -79,7 +85,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Wrapper for item list */
 .bm-item-list {
-    color: #b8b7ad;
+    color: rgb(56, 56, 56);
     padding: 0.8em;
 }
 
