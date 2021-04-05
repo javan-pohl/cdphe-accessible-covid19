@@ -43,7 +43,6 @@
 
 @media screen and (max-width: 992px) {
   .display {
-    width: 90%;
-    margin-left: 10%;
+    width: 100%;
   }
 }

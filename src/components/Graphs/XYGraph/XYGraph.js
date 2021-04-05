@@ -68,12 +68,24 @@ const XYGraph = ({data, topic, dateCap, yAccessor}) => {
             }
         ],
         hoverAnnotation: true,
-        tooltipContent: d => (
-            <div className="tooltip-content">
-                <p>Date: {formatDate(d[dateKey])}</p>
-                <p>Total {topic} Count: {formatComma(d[yAccessor])}</p>
-            </div>
-        )
+        tooltipContent: d => {
+            return (
+                <React.Fragment>
+                    {
+                        (d[dateKey] && d[yAccessor]) ? 
+                        <div className="tooltip-content">
+                            <p>Date: {formatDate(d[dateKey])}</p>
+                            <p>Total {topic} Count: {formatComma(d[yAccessor])}</p>
+                        </div>
+                        : 
+                        <div className="tooltip-content">
+                            <p>Date: {d[dateKey]}</p>
+                            <p>Total {topic} Count: {d[yAccessor]}</p>
+                        </div>
+                    }
+                </React.Fragment>
+            )
+        } 
     }
     return <ResponsiveXYFrame {...frameProps} />
 }
