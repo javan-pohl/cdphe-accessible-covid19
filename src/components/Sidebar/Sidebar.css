@@ -14,3 +14,9 @@
 .sub-option:hover {
     color: lightslategrey;
 }
+
+@media (max-width: 900px) {
+  .sidebar {
+    flex-direction: row;
+  }
+}
