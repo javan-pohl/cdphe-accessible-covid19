@@ -30,7 +30,7 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
     responsiveWidth: true,
     /* --- Layout --- */
     margin: {
-      left: 80,
+      left: 60,
       bottom: 90,
       right: 10,
       top: 40,
