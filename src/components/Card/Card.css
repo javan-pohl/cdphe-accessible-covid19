@@ -2,3 +2,9 @@
     margin: 1rem;
     width: 90%;
 }
+@media screen and (max-width: 992px) {
+  .poc-card {
+    margin: 0;
+    width: 100%;
+  }
+}
