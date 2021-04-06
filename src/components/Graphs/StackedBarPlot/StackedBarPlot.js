@@ -46,7 +46,7 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
     style: (d) => {
       return {
         fill: fillColors[d.rIndex % fillColors.length],
-        stroke: "white",
+        stroke: "none",
       };
     },
 
