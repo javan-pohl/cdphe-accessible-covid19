@@ -28,12 +28,12 @@ const MyCard = ({data, topic, graphType, dateCap, accessors, fillColors, labels,
           <XYGraph 
             data={data} 
             topic={topic} 
+            dateCap={dateCap}
             yAccessor={accessors} 
           />
         );
     }
   }
-
 
   return (
     <div className="poc-card">

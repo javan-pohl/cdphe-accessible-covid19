@@ -1,5 +1,5 @@
 import { formatDate, sortObjectsByDate } from "./utilities";
-
+import _ from 'lodash';
 import { API_URLS } from "./constants";
 
 export async function getDailyStatistics() {
@@ -153,4 +153,37 @@ export async function getTestingStatistics(testType) {
       console.log(err);
       return [];
     });
+}
+
+export async function getVaccineStatistics() {
+  return await fetch(API_URLS.vaccineStatistics)
+    .then((res) => res.json())
+    .then((resJson) => {
+      const { features } = resJson;
+      const rawVaccineData = features.map(point => point.attributes)
+      const dataBySection = _.groupBy(rawVaccineData, 'section');
+      const dataAllGrouping = _.mapValues(dataBySection, (section) => {
+        const groupedByCategory = _.groupBy(section, 'category');
+        const groupedByMetricAndType = _.mapValues(groupedByCategory, (category) => {
+          const groupedByMetric = _.groupBy(category, 'metric');
+          return _.mapValues(groupedByMetric, (type, metricKey) => {
+            const groupedByType = _.groupBy(type, 'type');
+            return _.mapValues(groupedByType, (eachType, eachKey) => {
+              // Vaccine data has duplicates for each date, take only the first date
+              // data is also not sorted so is sorted subsequently
+              // this normalization method does not work for other vaccine data, and so is only applied to the Cumulative Daily stats which are currently being used.
+              if (metricKey === 'Cumulative Daily') {
+                const uniqueVaxValues = _.uniqBy(eachType, 'date');
+                return _.sortBy(uniqueVaxValues, (e) => new Date(e.date));
+              } else {
+                return eachType
+              }
+            });
+          });
+        })
+        return groupedByMetricAndType
+      })
+      return dataAllGrouping;
+    })
+    .catch((err) => console.log(err));
 }
