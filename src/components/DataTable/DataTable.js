@@ -37,18 +37,20 @@ const DataTable = ({data, dateCap, accessors, title, labels}) => {
 
   return (
     <div className="poc-table-wrapper">
-      <table className="poc-table">
-        <caption>{title}:</caption>
-        {
-          generateHeaders(labelsParse)
-        }
-        <tbody>
+      <table className="poc-table" role="presentation" tabIndex="0">
+        <caption>{title}</caption>
+        <thead className="poc-tablehead">
+          {
+            generateHeaders(labelsParse)
+          }
+        </thead>
+        <tbody className="poc-body">
           {
             generateRows(data, accessorsParse)
           }
         </tbody>
       </table>
-    </div>
+   </div>
   );
 }
 

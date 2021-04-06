@@ -1,5 +1,5 @@
 .poc-table-wrapper {
-    height: 400px;
+    height: 25rem;
     width: 100%;
     overflow: scroll;
 }
@@ -16,4 +16,8 @@ td {
     border-width: 1px;
     border-color: #BCBCBC;
     word-wrap: break-word;
+}
+
+caption {
+    caption-side: top;
 }

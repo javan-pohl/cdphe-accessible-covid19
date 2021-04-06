@@ -1,7 +1,7 @@
 import "./StackedBarPlot.css";
 
 import Alert from "../../Alert/Alert"
-import OrdinalFrame from "semiotic/lib/OrdinalFrame";
+import ResponsiveOrdinalFrame from "semiotic/lib/ResponsiveOrdinalFrame";
 import React from "react";
 
 const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
@@ -27,6 +27,7 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
     data: data,
     /* --- Size --- */
     size: [860, 400],
+    responsiveWidth: true,
     /* --- Layout --- */
     margin: {
       left: 80,
@@ -111,7 +112,7 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
     },
   };
 
-  return <OrdinalFrame {...frameProps} />;
+  return <ResponsiveOrdinalFrame {...frameProps} />;
 };
 
 export default StackedBarPlot;

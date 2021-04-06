@@ -67,6 +67,11 @@ export const StatsCard = (_ref) => {
   ]
 
   const getMovementColor = (label, movement) => {
+    // Colors are set to accessible alternatives to contrast the background #fff
+    // Yellow - #525e00
+    // Green - #006700
+    // Red - #b40000
+
     label = label.toLowerCase();
     if (hideMovement || isNaN(movement)) {
       return "white";
@@ -103,7 +108,7 @@ export const StatsCard = (_ref) => {
   return (
     <Card className={className}>
       <Card.Body className='p-5 text-center'>
-          <Text color={movementColor} className='text-right'>
+          <Text className={`text-right movement-${movementColor}`}>
             {hideMovement ? "" : movementString + " "}
             <Icon
               name={
