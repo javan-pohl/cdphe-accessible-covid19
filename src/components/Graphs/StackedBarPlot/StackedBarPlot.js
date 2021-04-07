@@ -1,6 +1,6 @@
 import "./StackedBarPlot.css";
 
-import Alert from "../../Alert/Alert"
+import Alert from "../../Alert/Alert";
 import ResponsiveOrdinalFrame from "semiotic/lib/ResponsiveOrdinalFrame";
 import React from "react";
 
@@ -66,11 +66,13 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
 
     /* --- Annotate --- */
     oLabel: (d) => {
+      console.log("oLabel d: ", d);
       if (d.endsWith("01")) {
         const date = new Date(d);
-        date.setDate(date.getDate() + 1);
-        const formatted = formatter.format(date);
-        return <text fontSize={12}>{formatted}</text>;
+        return <text fontSize={12}>{date.getMonth() + 1 + "/" + date.getDate()}</text>;
+        // date.setDate(date.getDate() + 1);
+        // const formatted = formatter.format(date);
+        // return <text fontSize={12}>{formatted}</text>;
       }
     },
     axes: [
