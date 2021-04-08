@@ -65,7 +65,7 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
         d = d.replace(/-/g, "/");
         const date = new Date(d);
         return (
-          <text fontSize={12}>
+          <text fontSize={11}>
             {date.getMonth() + 1 + "/" + date.getDate()}
           </text>
         );
