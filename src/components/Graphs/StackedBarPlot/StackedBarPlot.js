@@ -5,12 +5,6 @@ import ResponsiveOrdinalFrame from "semiotic/lib/ResponsiveOrdinalFrame";
 import React from "react";
 
 const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    year: "2-digit",
-    month: "short",
-    day: "numeric",
-  });
-
   if (typeof data === "undefined" || data.length === 0) {
     return (
       <Alert
@@ -66,13 +60,15 @@ const StackedBarPlot = ({ data, fillColors, rAccessor, title, rLabels }) => {
 
     /* --- Annotate --- */
     oLabel: (d) => {
-      console.log("oLabel d: ", d);
       if (d.endsWith("01")) {
+        // replacing the hypen with a slash to prevent the date object from switching to the day prior
+        d = d.replace(/-/g, "/");
         const date = new Date(d);
-        return <text fontSize={12}>{date.getMonth() + 1 + "/" + date.getDate()}</text>;
-        // date.setDate(date.getDate() + 1);
-        // const formatted = formatter.format(date);
-        // return <text fontSize={12}>{formatted}</text>;
+        return (
+          <text fontSize={12}>
+            {date.getMonth() + 1 + "/" + date.getDate()}
+          </text>
+        );
       }
     },
     axes: [
