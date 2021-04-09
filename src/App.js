@@ -27,7 +27,9 @@ const App = () => {
   });
 
   useEffect(() => {
-    getDailyStatistics().then((dailyStatsData) => setDailyData(dailyStatsData));
+    getDailyStatistics().then((dailyStatsData) => {
+      setDailyData(dailyStatsData)
+    });
     getTestingStatistics("pcr").then((data) => {
       setPcrTestData(data);
     });

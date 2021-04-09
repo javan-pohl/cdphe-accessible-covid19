@@ -8,14 +8,12 @@ export async function getDailyStatistics() {
     data.map((attr) => newData.push(...Object.values(attr)));
     let filteredData = newData.filter((attr) => attr.Date !== null);
     let lowercaseData = keysToLowercase(filteredData)
-    console.log('lowercaseData: ', lowercaseData)
     return sortObjectsByDate(lowercaseData, false);
   }
 
   return await fetch(API_URLS.dailyStatistics)
     .then((res) => res.json())
     .then((resJson) => {
-      console.log('resJson: ', resJson.features)
       return cleanDailyStats(resJson.features);
     })
     .catch((err) => {
