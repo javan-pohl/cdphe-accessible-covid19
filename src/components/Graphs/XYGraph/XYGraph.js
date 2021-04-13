@@ -25,7 +25,7 @@ const XYGraph = ({data, topic, dateCap, yAccessor}) => {
         size: [860, 400],
         responsiveWidth: true,
         margin: { 
-            left: 80, 
+            left: 60, 
             bottom: 90, 
             right: 10, 
             top: 40 
