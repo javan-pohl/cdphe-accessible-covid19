@@ -5,7 +5,34 @@ import { API_URLS } from "./constants";
 export async function getDailyStatistics() {
   function cleanDailyStats(data) {
     let newData = [];
-    data.map((attr) => newData.push(...Object.values(attr)));
+    data.forEach((attr) => {
+      const record = Object.values(attr)[0]; 
+      const {Cases, 
+        Counties, 
+        Date, 
+        Deaths, 
+        DthCOVID19, 
+        Hosp, 
+        Outbreaks, 
+        Population, 
+        Rate, 
+        Test_Encounters, 
+        Tested} = record;
+        
+      newData.push({
+        Cases, 
+        Counties, 
+        Date, 
+        Deaths, 
+        DthCOVID19, 
+        Hosp, 
+        Outbreaks, 
+        Population, 
+        Rate, 
+        Test_Encounters, 
+        Tested
+      })
+    });
     let filteredData = newData.filter((attr) => attr.Date !== null);
     return sortObjectsByDate(filteredData, false);
   }
