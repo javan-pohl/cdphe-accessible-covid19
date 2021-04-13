@@ -35,20 +35,22 @@ const App = () => {
       setAntibodyTestData(data);
     });
     getVaccineStatistics().then((data) => {
-      const allVaccine = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["All COVID Vaccines"];
-      const johnson = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Janssen"];
-      const pfizer = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Pfizer"];
-      const moderna = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Moderna"];
-      const unspecified = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Unspecified COVID Vaccine"];
-      setVaccineData(
-        {
-          all: allVaccine,
-          johnson,
-          pfizer,
-          moderna,
-          unspecified
-        }
-      );
+      if (data) {
+        const allVaccine = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["All COVID Vaccines"];
+        const johnson = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Janssen"];
+        const pfizer = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Pfizer"];
+        const moderna = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Moderna"];
+        const unspecified = data["Vaccine Administration"]["Administration"]["Cumulative Daily"]["Unspecified COVID Vaccine"];
+        setVaccineData(
+          {
+            all: allVaccine,
+            johnson,
+            pfizer,
+            moderna,
+            unspecified
+          }
+        );
+      }
     });
   }, []);
 
