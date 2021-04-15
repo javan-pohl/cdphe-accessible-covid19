@@ -76,3 +76,14 @@ export function sortObjectsByDate(objects, ascending, parseDate) {
     return objectsCopy;
 }
 
+export function keysToLowercase(arr) {
+ return arr.map( obj => {
+   if (obj instanceof Object && Array.isArray(obj) === false) {
+   return _.transform(obj, (result, val, key) => {
+     result[key === 'Date' ? key.toLowerCase() : key] = val;
+    })
+  } else {
+    return obj;
+  }
+ }) 
+}
