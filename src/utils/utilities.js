@@ -63,7 +63,7 @@ export function sortObjectsByDate(objects, ascending, parseDate) {
     // parseDate must take an object argument and return a Javascript Date
     let objectsCopy = objects.slice();
     if (parseDate === undefined) {
-        parseDate = obj => parseDateMonthDayYear(obj.Date);
+        parseDate = obj => parseDateMonthDayYear(obj.date);
     }
     if (ascending === undefined) {
         ascending = true;
